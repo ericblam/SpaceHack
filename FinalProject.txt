@@ -1,0 +1,59 @@
+Character{
+	// has inventory
+	Player{
+		Scout{}
+		Soldier{}
+		Medic{}
+		Sniper{}
+		Heavy{}
+	}
+	NCP{
+		FootSoldier{} // simplest maze solver
+		Hunter{} // best "maze solver"
+		Bug{} // no maze solver
+		Zealot{}
+		Invader{}
+		// need more?
+	}
+}
+
+Weapon{
+	// Weapons can take different ammo
+	// ex. normal rounds, hollow rounds, incendiary rounds, etc.
+
+	// Can also have one "upgrade"
+
+	Pistol{} // normal range
+	AR{} // normal range
+	Rifle{} // long range
+	Shotgun{} // short range
+	Laser{}
+	BigFrakkinGun{} // epic
+}
+
+Inventory{
+	// holds items in specific amounts
+
+	// 2 weapons?
+	// x ammo
+	// y other items
+}
+
+Item{
+	use()
+	Weapon{/*defined above*/}
+	Ammo{} //many many different types
+	Medpack{}
+	Datapad{}
+	WeaponUpgrade{}
+}
+
+Map{
+	// has grid
+	// grid has nodes
+}
+
+MapNode{
+	Wall/Structure{}
+	Floor{}
+}
