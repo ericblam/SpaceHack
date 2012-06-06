@@ -32,11 +32,7 @@ Weapon{
 }
 
 Inventory{
-	// holds items in specific amounts
-
-	// 2 weapons?
-	// x ammo
-	// y other items
+	// array of Items
 }
 
 Item{

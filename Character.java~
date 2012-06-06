@@ -6,18 +6,16 @@ public abstract class Character {
     private double power;
     private double maxPower;
     private double strength;
-    priavte int level;
 
-    Character(double h, double maxH, double p, double maxP, double s, int l) {
+    Character(double h, double maxH, double p, double maxP, double s) {
 	health = h;
 	maxHealth = maxH;
 	strength = s;
-	level = l;
-	i = new Inventory(Inventory.DEFAULT_INVENTORY_SIZE);
+	i = new Inventory();
     }
 
-    Character(Inventory i, double h, double maxH, double p, double maxP, double s, int l) {
-	super(h,maxH,p,maxP,s,l);
+    Character(Inventory i, double h, double maxH, double p, double maxP, double s) {
+	super(h,maxH,p,maxP,s);
 	inventory = i;
     }
 

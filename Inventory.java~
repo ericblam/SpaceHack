@@ -1,0 +1,11 @@
+public class Inventory {
+
+    public static final DEFAULT_BAG_SIZE = 15;
+
+    private Item[] bag;
+
+    public Inventory(int size) {
+	bag = new Item[size];
+    }
+
+}
