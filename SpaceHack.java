@@ -1,5 +1,9 @@
 public class SpaceHack {
   
+  public static final char WALL_CHAR = '#';
+  public static final char FLOOR_CHAR = '-';
+  public static final char SPACE_CHAR = '.';
+  
   private Level[] game;
  
   public SpaceHack() {

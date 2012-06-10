@@ -1,6 +1,6 @@
 public class Level {
   
-  MapNode[][] grid;
+  private MapNode[][] grid;
   
   public Level(MapNode[][] g) {
     grid = g;
@@ -8,6 +8,10 @@ public class Level {
   
   public MapNode getNode(int x, int y) {
     return grid[y][x];
+  }
+  
+  public MapNode[][] getGrid() {
+    return grid;
   }
   
 }
