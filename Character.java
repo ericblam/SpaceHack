@@ -31,5 +31,17 @@ public abstract class Character {
 	health = 0;
 	power = 0;
     }
+
+    public void setInventory(Inventory i) {
+	inventory = i;
+    }
+
+    public void pickUp(Item i) {
+	inventory.add(i);
+    }
+
+    public void loadWeapon(Ammo i) {
+	
+    }
   
 }
