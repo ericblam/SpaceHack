@@ -25,5 +25,11 @@ public abstract class Character {
 	super(m,h,maxH,p,maxP,s,l);
 	inventory = i;
     }
+
+    public void kill() {
+	currentSpace = null;
+	health = 0;
+	power = 0;
+    }
   
 }
