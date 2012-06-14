@@ -1,4 +1,10 @@
 public class Level {
+
+  public static final char WALL_CHAR = '#';
+  public static final char FLOOR_CHAR = '-';
+  public static final char SPACE_CHAR = '.';
+  public static final char DOOR_CHAR = '=';
+  public static final char ELEVATOR_CHAR = 'X';
   
   private MapNode[][] grid;
   

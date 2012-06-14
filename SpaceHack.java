@@ -3,10 +3,6 @@ import java.util.*;
 
 public class SpaceHack {
   
-  public static final char WALL_CHAR = '#';
-  public static final char FLOOR_CHAR = '-';
-  public static final char SPACE_CHAR = '.';
-  
   private Level[] game;
   
   public SpaceHack() {
@@ -59,9 +55,9 @@ public class SpaceHack {
       line = sc.nextLine();
       for(int x = 0; x < line.length(); x++) {
         curr = line.charAt(x);
-        if(curr == WALL_CHAR)
+        if(curr == Level.WALL_CHAR)
           grid[x][y] = new Wall(level,x,y);
-        else if(curr == FLOOR_CHAR)
+        else if(curr == Level.FLOOR_CHAR)
           grid[x][y] = new Floor(level,x,y);
         else
           grid[x][y] = new Space(level,x,y);
