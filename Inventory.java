@@ -1,6 +1,6 @@
 public class Inventory {
   
-  public static final DEFAULT_BAG_SIZE = 15;
+  public static final int DEFAULT_BAG_SIZE = 15;
   
   private Item[] bag;
   
@@ -8,10 +8,10 @@ public class Inventory {
     bag = new Item[size];
   }
   
-  public boolean add(Item i) {
+  public boolean add(Item item) {
     for(int i = 0; i < bag.length; i++) {
       if(bag[i] == null) {
-        bag[i] = i;
+        bag[i] = item;
         return true;
       }
     }

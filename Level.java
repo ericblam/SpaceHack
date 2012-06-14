@@ -14,4 +14,8 @@ public class Level {
     return grid;
   }
   
+  public void setGrid(MapNode[][] n) {
+    grid = n;
+  }
+  
 }
