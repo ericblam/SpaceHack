@@ -18,4 +18,12 @@ public class Inventory {
     return false;
   }
   
+  public Item get(int i) {
+      return bag[i];
+  }
+  
+  public int bagSize() {
+      return bag.length;
+  }
+  
 }

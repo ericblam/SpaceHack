@@ -4,12 +4,13 @@ import java.util.*;
 public class SpaceHack {
   
   private Level[] game;
+  private int turns;
   
   public SpaceHack() {
-    
+    setGame();
+    turns = 0;
   }
   
-  // Reader code from MazeSolver
   public void setGame() {
     
   }
