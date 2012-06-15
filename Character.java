@@ -65,4 +65,8 @@ public abstract class Character {
       }
   }
   
+  public MapNode getNode() {
+      return currentSpace;
+  }
+  
 }
