@@ -11,4 +11,15 @@ public class AssaultRifle extends Weapon {
         
     }
     
+    public Ammo load(Ammo a) {
+        Ammo oldMag = getAmmo();
+        if(a instanceof ARRound) {
+            setMag(a);
+        }
+        else {
+            setMag(null);
+        }
+        return oldMag;
+    }
+    
 }

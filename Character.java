@@ -28,6 +28,10 @@ public abstract class Character {
     inventory = i;
   }
   
+  public int getHeading() {
+      return heading;
+  }
+  
   public void kill() {
     currentSpace = null;
     health = 0;
@@ -46,8 +50,8 @@ public abstract class Character {
       hand = w;
   }
   
-  public void loadWeapon(Ammo i) {
-    hand.load(i);
+  public Ammo loadWeapon(Ammo i) {
+    return hand.load(i);
   }
   
   public double getHealth() {

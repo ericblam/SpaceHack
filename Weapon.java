@@ -15,10 +15,15 @@ public abstract class Weapon extends Item {
   
   public abstract void fire();
   
-  public Ammo load(Ammo a) {
-    Ammo oldMag = magazine;
-    magazine = a;
-    return oldMag;
+  // If ammo is correct, will load. Otherwise will just eject magazine.
+  public abstract Ammo load(Ammo a);
+  
+  public Ammo getAmmo() {
+      return magazine;
+  }
+  
+  public void setMag(Ammo a) {
+      magazine = a;
   }
   
 }
