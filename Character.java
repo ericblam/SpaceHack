@@ -1,9 +1,6 @@
 public abstract class Character {
   
-  public static final int DEFAULT_HEADING = MapNode.UP;
-  
   private MapNode currentSpace;
-  private int heading;
   
   private Weapon hand;
   private Inventory inventory;
@@ -19,7 +16,6 @@ public abstract class Character {
     strength = s;
     level = l;
     inventory = new Inventory(Inventory.DEFAULT_BAG_SIZE);
-    heading = DEFAULT_HEADING;
     hand = null;
   }
   
@@ -28,13 +24,13 @@ public abstract class Character {
     inventory = i;
   }
   
-  public int getHeading() {
-      return heading;
-  }
-  
   public void kill() {
     currentSpace = null;
     health = 0;
+  }
+  
+  public void move(int direction) {
+      currentSpace = currentSpace.getDirection(direction);
   }
   
   public void setInventory(Inventory i) {

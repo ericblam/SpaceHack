@@ -1,4 +1,3 @@
-
 public abstract class Weapon extends Item {
 
     private Ammo magazine;
@@ -7,24 +6,24 @@ public abstract class Weapon extends Item {
     private int aVal;
     private int r;
 
-    public Weapon(int w, Ammo a, int attack, int range) {
-        super(w, null);
+    public Weapon(int weight, Ammo a, int attack, int range) {
+        super(weight, null);
         magazine = a;
-        aVal = attack;
+        aVal = attack + a.attackBonus();
         r = range;
         upgrade = null;
     }
 
-    public void fire() {
-        shoot(getHolder().getNode().getDirection(getHolder().getHeading()), r - 1);
+    public void fire(int direction) {
+        shoot(getHolder().getNode().getDirection(direction), direction, r - 1);
     }
 
-    private void shoot(MapNode m, int power) {
+    private void shoot(MapNode m, int direction, int power) {
         if (m.getCharacter() != null) {
             // Put something in for defense?
             m.getCharacter().addHealth(-aVal);
         } else if (power > 0) {
-            shoot(m.getDirection(getHolder().getHeading()), power - 1);
+            shoot(m.getDirection(direction), direction, power - 1);
         }
     }
 
