@@ -8,6 +8,7 @@ public abstract class Character {
   private double maxHealth;
   private double strength;
   private int level;
+  private boolean isFriendly;
   
   Character(MapNode m, double h, double maxH, double s, int l) {
     currentSpace = m;
@@ -30,7 +31,21 @@ public abstract class Character {
   }
   
   public void move(int direction) {
-      currentSpace = currentSpace.getDirection(direction);
+      MapNode next = currentSpace.getDirection(direction);
+      if(next.getCharacter() == null) {
+        currentSpace.putCharacter(null);
+        currentSpace = currentSpace.getDirection(direction);
+        currentSpace.putCharacter(this);
+      }
+      else if(!next.getCharacter().isFriendly()) {
+        attack(direction);
+      }
+  }
+  
+  public void attack(int direction) {
+      if(hand != null) {
+          hand.fire(direction);
+      }
   }
   
   public void setInventory(Inventory i) {
@@ -63,6 +78,10 @@ public abstract class Character {
   
   public MapNode getNode() {
       return currentSpace;
+  }
+  
+  public boolean isFriendly() {
+      return isFriendly;
   }
   
 }

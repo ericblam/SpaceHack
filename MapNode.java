@@ -8,6 +8,7 @@ public class MapNode {
   public static final int DOWN_LEFT = 1;
   public static final int LEFT = 4;
   public static final int UP_LEFT = 7;
+  public static final int THIS_SPACE = 5;
   
   // What level this node belongs to
   private Level grid;
@@ -46,7 +47,10 @@ public class MapNode {
   
   public MapNode getDirection(int d) {
     MapNode[][] g = grid.getGrid();
-    if(d == UP && yC > 0) {
+    if(d == THIS_SPACE) {
+      return this;
+    }
+    else if(d == UP && yC > 0) {
       return g[yC - 1][xC];
     }
     else if(d == UP_RIGHT && yC > 0 && xC < g[0].length) {
@@ -76,6 +80,10 @@ public class MapNode {
   
   public Character getCharacter() {
     return characterOn;
+  }
+  
+  public void putCharacter(Character c) {
+      characterOn = c;
   }
   
   public Level getGrid() {
