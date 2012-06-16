@@ -11,6 +11,10 @@ public class Level {
   
   private MapNode[][] grid;
   
+  public Level() {
+      grid = null;
+  }
+  
   public Level(MapNode[][] g) {
     grid = g;
   }

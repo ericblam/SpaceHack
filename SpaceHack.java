@@ -12,6 +12,7 @@ public class SpaceHack {
   private static final int NUM_LEVELS = 5;
   
   public SpaceHack() {
+    game = new Level[NUM_LEVELS];
     setGame();
     turns = 0;
     currLevel = 3;
@@ -19,12 +20,44 @@ public class SpaceHack {
   }
   
   public void setGame() {
-    game = new Level[NUM_LEVELS];
-    game[3] = readLevel("TwilightDeck3.txt");
+    game[3] = readLevel("TwilightDeck3.dat");
   }
   
   // Reads a level from a text file.
   private Level readLevel(String filename) {
+    
+    Level level = new Level(null);
+    char[][] map = fileToCharArray("TwilightDeck3.dat");
+    // This line is iffy, but will work provided that the file has something in it.
+    MapNode[][] grid = new MapNode[map.length][map[0].length];
+    int y = 0;
+    char curr;
+    for(int r = 0; r < map.length; r++) {
+      for(int c = 0; c < map[r].length; c++) {
+        curr = map[r][c];
+        if(curr == Level.WALL_CHAR)
+          grid[r][c] = new Wall(level,c,r);
+        else if(curr == Level.FLOOR_CHAR)
+          grid[r][c] = new Floor(level,c,r);
+        else if(curr == Level.DOOR_CHAR)
+          grid[r][c] = new Door(level,c,r);
+        else if(curr == Level.ELEVATOR_CHAR)
+          grid[r][c] = new Elevator(level,c,r);
+        else if(curr == Level.BLAST_DOOR_CHAR)
+          grid[r][c] = new BlastDoor(level,c,r);
+        else if(curr == Level.PLAYER_BED_CHAR)
+          grid[r][c] = new PlayerBed(level,c,r);
+        else if(curr == Level.CREW_SPAWN_CHAR)
+          grid[r][c] = new CrewSpawn(level,c,r);
+        else
+          grid[r][c] = new Space(level,c,r);
+      }
+    }
+    level.setGrid(grid);
+    return level;
+  }
+  
+  public char[][] fileToCharArray(String filename) {
     String line;
     Scanner sc = null;
     try {
@@ -50,45 +83,25 @@ public class SpaceHack {
       System.exit(0);
     }
     
-    Level level = new Level(null);
+    char[][] charArray = new char[lines][lineLength];
     
-    // This line is iffy, but will work provided that the file has something in it.
-    MapNode[][] grid = new MapNode[lines][lineLength];
     int y = 0;
-    char curr;
     while(sc.hasNextLine()) {
       line = sc.nextLine();
       for(int x = 0; x < line.length(); x++) {
-        curr = line.charAt(x);
-        if(curr == Level.WALL_CHAR)
-          grid[x][y] = new Wall(level,x,y);
-        else if(curr == Level.FLOOR_CHAR)
-          grid[x][y] = new Floor(level,x,y);
-        else if(curr == Level.DOOR_CHAR)
-          grid[x][y] = new Door(level,x,y);
-        else if(curr == Level.ELEVATOR_CHAR)
-          grid[x][y] = new Elevator(level,x,y);
-        else if(curr == Level.BLAST_DOOR_CHAR)
-          grid[x][y] = new BlastDoor(level,x,y);
-        else if(curr == Level.PLAYER_BED_CHAR)
-          grid[x][y] = new PlayerBed(level,x,y);
-        else if(curr == Level.CREW_SPAWN_CHAR)
-          grid[x][y] = new CrewSpawn(level,x,y);
-        else
-          grid[x][y] = new Space(level,x,y);
+          charArray[y][x] = line.charAt(x);
       }
       y++;
     }
-    level.setGrid(grid);
-    return level;
+    return charArray;
   }
   
   public String printCurrLevel() {
       return game[currLevel].toString();
   }
   
-  public void main(String[] args) {
-      SpaceHack SHgame = new SpaceHack();
+  public String printPlayerStats() {
+      return "";
   }
   
 }
