@@ -1,18 +1,18 @@
 public abstract class Item {
 
     private double weight;
-    private Character holder;
+    private Unit holder;
 
-    public Item(double w, Character h) {
+    public Item(double w, Unit h) {
         weight = w;
         holder = h;
     }
 
-    public void pickedUpBy(Character h) {
+    public void pickedUpBy(Unit h) {
         holder = h;
     }
     
-    public Character getHolder() {
+    public Unit getHolder() {
         return holder;
     }
     

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class MapNode {
   
   public static final int UP = 8;
@@ -14,7 +16,8 @@ public class MapNode {
   private Level grid;
   
   // What character is on the node
-  private Character characterOn;
+  private Unit characterOn;
+  private ArrayList<Item> itemsOn;
   
   private int xC;
   private int yC;
@@ -28,6 +31,7 @@ public class MapNode {
   public MapNode(Level g, int x, int y, String t, int d, double tr, boolean p) {
     grid = g;
     characterOn = null;
+    itemsOn = new ArrayList<Item>();
     xC = x;
     yC = y;
     terrain = t;
@@ -81,11 +85,11 @@ public class MapNode {
       return null;
   }
   
-  public Character getCharacter() {
+  public Unit getCharacter() {
     return characterOn;
   }
   
-  public void putCharacter(Character c) {
+  public void putCharacter(Unit c) {
       characterOn = c;
   }
   
