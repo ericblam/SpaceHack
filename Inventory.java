@@ -29,7 +29,7 @@ public class Inventory {
       return bag.length;
   }
   
-  public double weigth() {
+  public double weight() {
       return weight;
   }
   

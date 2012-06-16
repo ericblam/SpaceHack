@@ -5,22 +5,50 @@ public class SpaceHack {
   
   private Level[] game;
   private int currLevel;
-  private Character player;
-  private ArrayList<Character> characters;
+  private Unit player;
+  private ArrayList<Unit> characters;
   private int turns;
   
   private static final int NUM_LEVELS = 5;
   
   public SpaceHack() {
     game = new Level[NUM_LEVELS];
-    setGame();
     turns = 0;
     currLevel = 3;
-    characters = new ArrayList<Character>();
+    characters = new ArrayList<Unit>();
+    
+    setGame();
   }
   
   public void setGame() {
     game[3] = readLevel("TwilightDeck3.dat");
+    char[][] map = fileToCharArray("TwilightDeck3.dat");
+    MapNode playerStart = game[currLevel].getNode(0,0);
+    outer:
+    for(int r = 0; r < map.length; r++) {
+      for(int c = 0; c < map[r].length; c++) {
+          if(map[r][c] == Level.PLAYER_BED_CHAR) {
+              playerStart = game[currLevel].getNode(c,r);
+              break outer;
+          }
+      }
+    }
+    String ans = classChoosePrompt();
+    if(ans.equals("Soldier")) {
+        player = new Soldier(playerStart);
+    }
+    else if(ans.equals("Scout")) {
+        player = new Soldier(playerStart);
+    }
+    else if(ans.equals("Sniper")) {
+        player = new Soldier(playerStart);
+    }
+    else if(ans.equals("Medic")) {
+        player = new Soldier(playerStart);
+    }
+    else {
+        player = new Soldier(playerStart);
+    }
   }
   
   // Reads a level from a text file.
@@ -47,8 +75,10 @@ public class SpaceHack {
           grid[r][c] = new BlastDoor(level,c,r);
         else if(curr == Level.PLAYER_BED_CHAR)
           grid[r][c] = new PlayerBed(level,c,r);
-        else if(curr == Level.CREW_SPAWN_CHAR)
+        else if(curr == Level.CREW_SPAWN_CHAR) {
           grid[r][c] = new CrewSpawn(level,c,r);
+          characters.add(new Crewman(grid[r][c]));
+        }
         else
           grid[r][c] = new Space(level,c,r);
       }
@@ -102,6 +132,32 @@ public class SpaceHack {
   
   public String printPlayerStats() {
       return "";
+  }
+  
+  public String classChoosePrompt() {
+      System.out.println("What class would you like to be?");
+      System.out.println("(\"Soldier\",\"Scout\",\"Sniper\",\"Medic\",\"Heavy\")?");
+      String ans = Keyboard.readWord();
+      if(!ans.equals("Soldier") && !ans.equals("Scout") && !ans.equals("Sniper") && !ans.equals("Medic") && !ans.equals("Heavy")) {
+          System.out.println("Sorry, that is not a valid answer.");
+          return classChoosePrompt();
+      }
+      else {
+          return ans;
+      }
+  }
+  
+  public boolean prompt() {
+      String reading = Keyboard.readWord();
+      if(reading.equals("Quit") || reading.equals("quit")) {
+          return false;
+      }
+      return true;
+  }
+  
+  public void doStuff() {
+      printCurrLevel();
+      printPlayerStats();
   }
   
 }

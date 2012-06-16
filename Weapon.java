@@ -16,7 +16,7 @@ public abstract class Weapon extends Item {
         acc = accuracy;
     }
 
-    public Character fire(int direction) {
+    public Unit fire(int direction) {
         if(getAmmo().getShots() > 0) {
             getAmmo().removeRounds(1);
              return shoot(getHolder().getNode().getDirection(direction), direction, r - 1);
@@ -24,11 +24,11 @@ public abstract class Weapon extends Item {
         return null;
     }
 
-    private Character shoot(MapNode m, int direction, int power) {
+    private Unit shoot(MapNode m, int direction, int power) {
         if(Math.random() <= acc && m.isPassable()) {
             if (m.getCharacter() != null) {
                 // Put something in for defense?
-                m.getCharacter().addHealth(-aVal * (1 + (getHolder().getExp() / Character.MAX_LEVEL)));
+                m.getCharacter().addHealth(-aVal * (1 + (getHolder().getExp() / Unit.MAX_LEVEL)));
                 return m.getCharacter();
             } else if (power > 0) {
                 return shoot(m.getDirection(direction), direction, power - 1);

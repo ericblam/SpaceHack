@@ -1,4 +1,4 @@
-public abstract class Character {
+public abstract class Unit {
   
   public static final double MAX_LEVEL = 30;
     
@@ -14,8 +14,9 @@ public abstract class Character {
   private boolean isFriendly;
   private char symbol;
   
-  Character(MapNode m, double h, double maxH, double at, double s, double l) {
+  Unit(MapNode m, double h, double maxH, double at, double s, double l, boolean friendly) {
     currentSpace = m;
+    m.putCharacter(this);
     health = h;
     maxHealth = maxH;
     attack = at;
@@ -24,11 +25,7 @@ public abstract class Character {
     inventory = new Inventory(Inventory.DEFAULT_BAG_SIZE);
     hand = null;
     symbol = '@';
-  }
-  
-  Character(MapNode m, Inventory i, double h, double maxH, double at, double s, double l) {
-    this(m,h,maxH,at,s,l);
-    inventory = i;
+    isFriendly = friendly;
   }
   
   public void kill() {
@@ -52,7 +49,7 @@ public abstract class Character {
   }
   
   public void attack(int direction) {
-      Character attacked;
+      Unit attacked;
       if(hand != null && hand.getAmmo().getShots() > 0) {
           attacked = hand.fire(direction);
       }
@@ -67,7 +64,7 @@ public abstract class Character {
       }
   }
   
-  public Character melee(int direction) {
+  public Unit melee(int direction) {
       MapNode next = currentSpace.getDirection(direction);
       if(next.getCharacter() != null && !next.getCharacter().isFriendly()) {
           next.getCharacter().addHealth(-attack);
@@ -93,8 +90,10 @@ public abstract class Character {
   }
   
   public void pickUp(Item i) {
-    inventory.add(i);
-    i.pickedUpBy(this);
+    if(inventory.weight() + i.weight() <= strength) {
+        inventory.add(i);
+        i.pickedUpBy(this);
+    }
   }
   
   public void equip(Weapon w) {
