@@ -20,8 +20,9 @@ public class MapNode {
   private String terrain;
   private int defense;
   private double traction;
+  private boolean passable;
   
-  public MapNode(Level g, int x, int y, String t, int d, double tr) {
+  public MapNode(Level g, int x, int y, String t, int d, double tr, boolean p) {
     grid = g;
     characterOn = null;
     xC = x;
@@ -29,6 +30,7 @@ public class MapNode {
     terrain = t;
     defense = d;
     traction = tr;
+    passable = p;
   }
   
   public void effect(){
@@ -78,6 +80,14 @@ public class MapNode {
   
   public Level getGrid() {
     return grid;
+  }
+  
+  public boolean isPassable() {
+      return passable;
+  }
+  
+  public void setPassability(boolean pass) {
+      passable = pass;
   }
   
 }

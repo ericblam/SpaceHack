@@ -6,13 +6,16 @@ public class SpaceHack {
   private Level[] game;
   private int turns;
   
+  private static final int NUM_LEVELS = 5;
+  
   public SpaceHack() {
     setGame();
-    turns = 0;
+    turns = 0;    
   }
   
   public void setGame() {
-    
+    game = new Level[NUM_LEVELS];
+    game[3] = readLevel("TwilightDeck3.txt");
   }
   
   public void main(String[] args) {
@@ -60,6 +63,14 @@ public class SpaceHack {
           grid[x][y] = new Wall(level,x,y);
         else if(curr == Level.FLOOR_CHAR)
           grid[x][y] = new Floor(level,x,y);
+        else if(curr == Level.DOOR_CHAR)
+          grid[x][y] = new Door(level,x,y);
+        else if(curr == Level.ELEVATOR_CHAR)
+          grid[x][y] = new Elevator(level,x,y);
+        else if(curr == Level.BLAST_DOOR_CHAR)
+          grid[x][y] = new BlastDoor(level,x,y);
+        else if(curr == Level.PLAYER_BED_CHAR)
+          grid[x][y] = new PlayerBed(level,x,y);
         else
           grid[x][y] = new Space(level,x,y);
       }
