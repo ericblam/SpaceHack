@@ -156,8 +156,8 @@ public class SpaceHack {
   }
   
   public void doStuff() {
-      printCurrLevel();
-      printPlayerStats();
+      System.out.println(printCurrLevel());
+      System.out.println(printPlayerStats());
   }
   
 }
