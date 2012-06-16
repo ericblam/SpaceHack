@@ -1,6 +1,6 @@
 public class Medpack extends Item {
     
-    public static final int MEDPACK_WEIGHT = 5;
+    public static final double MEDPACK_WEIGHT = 5.0;
     public static final int DEFAULT_RATING = 40;
     
     private int rating;

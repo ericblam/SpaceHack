@@ -3,7 +3,7 @@ public abstract class Item {
     private double weight;
     private Character holder;
 
-    public Item(int w, Character h) {
+    public Item(double w, Character h) {
         weight = w;
         holder = h;
     }
@@ -17,6 +17,10 @@ public abstract class Item {
     }
     
     public void use(){
+    }
+    
+    public double weight() {
+        return weight;
     }
     
 }

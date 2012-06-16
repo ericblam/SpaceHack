@@ -1,6 +1,6 @@
 class ARRound extends Ammo {
 
-    public static final int ARROUND_WEIGHT = 2;
+    public static final double ARROUND_WEIGHT = 2.0;
     public static final int ARROUND_MAG_SIZE = 15;
 
     public ARRound() {

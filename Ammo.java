@@ -6,7 +6,7 @@ public abstract class Ammo extends Item {
     private int maxShots;
     private int attackBonus;
 
-    public Ammo(int w, int s, int aB, int mShots) {
+    public Ammo(double w, int s, int aB, int mShots) {
         super(w, null);
         shots = s;
         maxShots = mShots;
@@ -15,6 +15,12 @@ public abstract class Ammo extends Item {
 
     public int getShots() {
         return shots;
+    }
+    
+    public void removeRounds(int rounds) {
+        shots -= rounds;
+        if(shots < 0)
+            shots = 0;
     }
 
     public int attackBonus() {

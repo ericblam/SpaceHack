@@ -1,11 +1,12 @@
 public class AssaultRifle extends Weapon {
     
-    public static final int AR_WEIGHT = 15;
+    public static final double AR_WEIGHT = 15.0;
     public static final int AR_ATTACK = 3;
     public static final int AR_RANGE = 2;
+    public static final double AR_ACCURACY = 0.75;
     
     public AssaultRifle() {
-        super(AR_WEIGHT, new ARRound(), AR_ATTACK, AR_RANGE);
+        super(AR_WEIGHT, new ARRound(), AR_ATTACK, AR_RANGE, AR_ACCURACY);
     }
     
     public Ammo load(Ammo a) {

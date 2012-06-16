@@ -18,10 +18,6 @@ public class SpaceHack {
     game[3] = readLevel("TwilightDeck3.txt");
   }
   
-  public void main(String[] args) {
-    
-  }
-  
   // Reads a level from a text file.
   private Level readLevel(String filename) {
     String line;
@@ -78,6 +74,10 @@ public class SpaceHack {
     }
     level.setGrid(grid);
     return level;
+  }
+  
+  public void main(String[] args) {
+    
   }
   
 }

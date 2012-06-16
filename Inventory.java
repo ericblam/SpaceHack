@@ -3,15 +3,18 @@ public class Inventory {
   public static final int DEFAULT_BAG_SIZE = 15;
   
   private Item[] bag;
+  private double weight;
   
   public Inventory(int size) {
     bag = new Item[size];
+    weight = 0;
   }
   
   public boolean add(Item item) {
     for(int i = 0; i < bag.length; i++) {
       if(bag[i] == null) {
         bag[i] = item;
+        weight += item.weight();
         return true;
       }
     }
@@ -24,6 +27,10 @@ public class Inventory {
   
   public int bagSize() {
       return bag.length;
+  }
+  
+  public double weigth() {
+      return weight;
   }
   
 }
