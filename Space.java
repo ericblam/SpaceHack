@@ -5,6 +5,7 @@ public class Space extends MapNode {
   
   public Space(Level g, int x, int y) {
     super(g, x, y, "Space", SPACE_DEFENSE, SPACE_TRACTION, true);
+    setSymbol(Level.SPACE_CHAR);
   }
   
 }

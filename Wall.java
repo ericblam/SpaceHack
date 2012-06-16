@@ -5,6 +5,7 @@ public class Wall extends MapNode {
   
   public Wall(Level g, int x, int y) {
     super(g, x, y, "Wall", WALL_DEFENSE, WALL_TRACTION, false);
+    setSymbol(Level.WALL_CHAR);
   }
   
 }

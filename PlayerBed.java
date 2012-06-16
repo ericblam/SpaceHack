@@ -5,6 +5,7 @@ class PlayerBed extends MapNode {
     
     public PlayerBed(Level g, int x, int y) {
         super(g,x,y, "PlayerBed", PLAYER_BED_DEFENSE, PLAYER_BED_TRACTION, true);
+        setSymbol(Level.PLAYER_BED_CHAR);
     }
     
 }

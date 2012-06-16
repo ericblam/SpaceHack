@@ -12,6 +12,7 @@ public abstract class Character {
   private double strength;
   private double level;
   private boolean isFriendly;
+  private char symbol;
   
   Character(MapNode m, double h, double maxH, double at, double s, double l) {
     currentSpace = m;
@@ -22,6 +23,7 @@ public abstract class Character {
     level = l;
     inventory = new Inventory(Inventory.DEFAULT_BAG_SIZE);
     hand = null;
+    symbol = '@';
   }
   
   Character(MapNode m, Inventory i, double h, double maxH, double at, double s, double l) {
@@ -82,6 +84,10 @@ public abstract class Character {
     inventory = i;
   }
   
+  public void setSymbol(char c) {
+      symbol = c;
+  }
+  
   public double getExp() {
       return level;
   }
@@ -116,6 +122,10 @@ public abstract class Character {
   
   public boolean isFriendly() {
       return isFriendly;
+  }
+  
+  public String toString() {
+      return "" + symbol;
   }
   
 }

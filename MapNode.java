@@ -23,6 +23,8 @@ public class MapNode {
   private double traction;
   private boolean passable;
   
+  private char symbol;
+  
   public MapNode(Level g, int x, int y, String t, int d, double tr, boolean p) {
     grid = g;
     characterOn = null;
@@ -32,6 +34,7 @@ public class MapNode {
     defense = d;
     traction = tr;
     passable = p;
+    symbol = ' ';
   }
   
   public void effect(){
@@ -98,4 +101,11 @@ public class MapNode {
       passable = pass;
   }
   
+  public void setSymbol(char c) {
+      symbol = c;
+  }
+  
+  public String toString() {
+      return "" + symbol;
+  }
 }

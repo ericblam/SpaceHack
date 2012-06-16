@@ -5,6 +5,7 @@ class BlastDoor extends MapNode {
     
     public BlastDoor(Level g, int x, int y) {
         super(g,x,y, "BlastDoor", BLAST_DOOR_DEFENSE, BLAST_DOOR_TRACTION, false);
+        setSymbol(Level.BLAST_DOOR_CHAR);
     }
     
     public void open() {

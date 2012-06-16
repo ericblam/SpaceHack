@@ -5,6 +5,7 @@ class Elevator extends MapNode {
     
     public Elevator(Level g, int x, int y) {
         super(g,x,y, "Elevator", ELEVATOR_DEFENSE, ELEVATOR_TRACTION, true);
+        setSymbol(Level.ELEVATOR_CHAR);
     }
     
 }

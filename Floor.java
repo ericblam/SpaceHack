@@ -5,6 +5,7 @@ public class Floor extends MapNode {
   
   public Floor(Level g, int x, int y) {
     super(g, x, y, "Floor", FLOOR_DEFENSE, FLOOR_TRACTION, true);
+    setSymbol(Level.FLOOR_CHAR);
   }
   
 }

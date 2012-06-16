@@ -5,6 +5,7 @@ class Door extends MapNode {
     
     public Door(Level g, int x, int y) {
         super(g,x,y, "Door", DOOR_DEFENSE, DOOR_TRACTION, false);
+        setSymbol(Level.DOOR_CHAR);
     }
     
     public void open() {

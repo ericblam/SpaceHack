@@ -4,13 +4,18 @@ import java.util.*;
 public class SpaceHack {
   
   private Level[] game;
+  private int currLevel;
+  private Character player;
+  private ArrayList<Character> characters;
   private int turns;
   
   private static final int NUM_LEVELS = 5;
   
   public SpaceHack() {
     setGame();
-    turns = 0;    
+    turns = 0;
+    currLevel = 3;
+    characters = new ArrayList<Character>();
   }
   
   public void setGame() {
@@ -67,6 +72,8 @@ public class SpaceHack {
           grid[x][y] = new BlastDoor(level,x,y);
         else if(curr == Level.PLAYER_BED_CHAR)
           grid[x][y] = new PlayerBed(level,x,y);
+        else if(curr == Level.CREW_SPAWN_CHAR)
+          grid[x][y] = new CrewSpawn(level,x,y);
         else
           grid[x][y] = new Space(level,x,y);
       }
@@ -76,8 +83,12 @@ public class SpaceHack {
     return level;
   }
   
+  public String printCurrLevel() {
+      return game[currLevel].toString();
+  }
+  
   public void main(String[] args) {
-    
+      SpaceHack SHgame = new SpaceHack();
   }
   
 }
