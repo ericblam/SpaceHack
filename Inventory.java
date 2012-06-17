@@ -25,6 +25,12 @@ public class Inventory {
       return bag[i];
   }
   
+  public Item remove(int i) {
+      Item oldItem = bag[i];
+      bag[i] = null;
+      return oldItem;
+  }
+  
   public int bagSize() {
       return bag.length;
   }
@@ -37,7 +43,7 @@ public class Inventory {
       String inv = "";
       for(int i = 0; i < bag.length; i++) {
           if(bag[i] != null) {
-              inv += "(" + i + "): " + bag[i].getClass().getName();
+              inv += "(" + i + "):" + bag[i].inventoryPrint() + " ";
           }
       }
       return inv;

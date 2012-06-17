@@ -25,4 +25,8 @@ public abstract class Item extends BasicThing {
         return weight;
     }
     
+    public String inventoryPrint() {
+        return getClass().getName();
+    }
+    
 }

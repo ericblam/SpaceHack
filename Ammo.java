@@ -26,4 +26,9 @@ public abstract class Ammo extends Item {
     public int attackBonus() {
         return attackBonus;
     }
+    
+    public String inventoryPrint() {
+        return super.inventoryPrint() + "(" + shots + "/" + maxShots + ")";
+    }
+    
 }

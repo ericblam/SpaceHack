@@ -131,11 +131,11 @@ public class SpaceHack {
   }
   
   public String printPlayerStats() {
-      return player.statString();
+      return player.statString() + "\tTurn: " + turns;
   }
   
   public String printPlayerInventory() {
-      return player.getInventory().toString() + "\tTurn: " + turns;
+      return player.getInventory().toString();
   }
   
   public String classChoosePrompt() {
@@ -156,44 +156,24 @@ public class SpaceHack {
       if(reading.equals("Quit") || reading.equals("quit")) {
           return false;
       }
-      PromptGroups.isAskingForHelp(reading);
-      PromptGroups.isMoving(player, reading);
-      PromptGroups.isOpeningDoor(player, reading);
-      PromptGroups.isClosingDoor(player, reading);
+      else if(PromptGroups.isMoving(player, reading))
+          return true;
+      else if(PromptGroups.isOpeningDoor(player, reading))
+          return true;
+      else if(PromptGroups.isClosingDoor(player, reading))
+          return true;
+      else if(PromptGroups.isAskingForHelp(reading)) {
+          doStuff();
+          return prompt();
+      }
+      else if(reading.equals("i") || reading.equals("inventory")) {
+          System.out.println(printPlayerInventory());
+          System.out.println("\nReady to continue? (Press any key)");
+          Keyboard.readWord();
+          doStuff();
+          return prompt();
+      }
       return true;
-  }
-  
-  public boolean clarificationPrompt() {
-      System.out.println("Are you sure?");
-      boolean ans = false;
-      String reading = Keyboard.readWord();
-      if(reading.equals("yes") || reading.equals("y") || reading.equals("Y") || reading.equals("Yes"))
-        ans = true;
-      return ans;
-  }
-  
-  public static int directionPrompt() {
-      String reading = Keyboard.readWord();
-      if(reading.equals("1"))
-          return MapNode.DOWN_LEFT;
-      if(reading.equals("2") || reading.equals("s"))
-          return MapNode.DOWN;
-      if(reading.equals("3"))
-          return MapNode.DOWN_RIGHT;
-      if(reading.equals("4") || reading.equals("a"))
-          return MapNode.LEFT;
-      if(reading.equals("5"))
-          return MapNode.THIS_SPACE;
-      if(reading.equals("6") || reading.equals("d"))
-          return MapNode.RIGHT;
-      if(reading.equals("7"))
-          return MapNode.UP_LEFT;
-      if(reading.equals("8") || reading.equals("w"))
-          return MapNode.UP;
-      if(reading.equals("9"))
-          return MapNode.UP_RIGHT;
-      System.out.println("Nevermind.");
-      return MapNode.THIS_SPACE;
   }
   
   public void doStuff() {
