@@ -9,9 +9,9 @@ public class PromptGroups {
           System.out.println("close"); //
           System.out.println("shoot/fire/attack"); //
           System.out.println("reload"); //
-          System.out.println("drop");
-          System.out.println("pickup");
-          System.out.println("look");
+          System.out.println("drop"); //
+          System.out.println("pickup"); //
+          System.out.println("look"); //
           System.out.println("weild");
           System.out.println("puton");
           System.out.println("quit"); //
@@ -252,6 +252,16 @@ public class PromptGroups {
       }
       else
           return false;
+      return true;
+  }
+  
+  public static boolean isUsing(Unit player, String reading) {
+      if(reading.equals("u") || reading.equals("use")) {
+          System.out.println("Use which?");
+          Item item = inventoryPrompt(player);
+          item.use();
+      }
+      else return false;
       return true;
   }
   

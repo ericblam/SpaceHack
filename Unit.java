@@ -32,6 +32,11 @@ public abstract class Unit extends BasicThing {
   }
   
   public void kill() {
+    for(int i = 0; i < inventory.bagSize(); i++) {
+        if(inventory.get(i) != null) {
+            drop(inventory.get(i));
+        }
+    }
     currentSpace.putCharacter(null);
     currentSpace = null;
     health = 0;

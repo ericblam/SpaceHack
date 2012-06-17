@@ -17,6 +17,12 @@ public class Medpack extends Item {
     
     public void use() {
         getHolder().addHealth(rating);
+        rating = 0;
+        getHolder().drop(this);
+    }
+    
+    public String inventoryPrint() {
+        return super.inventoryPrint() + "(" + rating + ")";
     }
     
 }
