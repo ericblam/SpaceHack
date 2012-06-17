@@ -198,7 +198,7 @@ public abstract class Unit extends BasicThing {
       stat += "Level/Exp: " + level + "\t";
       stat += "Character at: (" + getNode().getX() + "," + getNode().getY() + ")";
       stat += "\tWearing: ";
-      if(hand == null)
+      if(clothes == null)
           stat += "nothing";
       else
           stat += clothes.inventoryPrint();

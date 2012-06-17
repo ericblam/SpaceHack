@@ -21,8 +21,8 @@ public class SpaceHack {
   }
   
   public void setGame() {
-    game[3] = readLevel("TwilightDeck3.dat");
-    char[][] map = fileToCharArray("TwilightDeck3.dat");
+    game[3] = readLevel("SpaceHack/TwilightDeck3.dat");
+    char[][] map = fileToCharArray("SpaceHack/TwilightDeck3.dat");
     MapNode playerStart = game[currLevel].getNode(0,0);
     outer:
     for(int r = 0; r < map.length; r++) {
@@ -59,7 +59,7 @@ public class SpaceHack {
   private Level readLevel(String filename) {
     
     Level level = new Level(null);
-    char[][] map = fileToCharArray("TwilightDeck3.dat");
+    char[][] map = fileToCharArray(filename);
     // This line is iffy, but will work provided that the file has something in it.
     MapNode[][] grid = new MapNode[map.length][map[0].length];
     int y = 0;
@@ -67,20 +67,27 @@ public class SpaceHack {
     for(int r = 0; r < map.length; r++) {
       for(int c = 0; c < map[r].length; c++) {
         curr = map[r][c];
-        if(curr == Level.WALL_CHAR)
+        if(curr == Level.WALL_CHAR) {
           grid[r][c] = new Wall(level,c,r);
-        else if(curr == Level.FLOOR_CHAR)
+        }
+        else if(curr == Level.FLOOR_CHAR) {
           grid[r][c] = new Floor(level,c,r);
-        else if(curr == Level.DOOR_CHAR)
+        }
+        else if(curr == Level.DOOR_CHAR) {
           grid[r][c] = new Door(level,c,r);
-        else if(curr == Level.ELEVATOR_CHAR)
+        }
+        else if(curr == Level.ELEVATOR_CHAR) {
           grid[r][c] = new Elevator(level,c,r);
-        else if(curr == Level.BLAST_DOOR_CHAR)
+        }
+        else if(curr == Level.BLAST_DOOR_CHAR) {
           grid[r][c] = new BlastDoor(level,c,r);
-        else if(curr == Level.PLAYER_BED_CHAR)
+        }
+        else if(curr == Level.PLAYER_BED_CHAR) {
           grid[r][c] = new PlayerBed(level,c,r);
-        else if(curr == Level.LOCKER_CHAR)
+        }
+        else if(curr == Level.LOCKER_CHAR) {
           grid[r][c] = new Locker(level,c,r);
+        }
         else if(curr == Level.CREW_SPAWN_CHAR) {
           grid[r][c] = new CrewSpawn(level,c,r);
           characters.add(new Crewman(grid[r][c], Unit.randomName()));
@@ -178,21 +185,21 @@ public class SpaceHack {
           return true;
       else if(PromptGroups.isReloading(player, reading))
           return true;
-      else if(PromptGroups.isDropping(player, reading)) {
+      else if(PromptGroups.isDropping(player, reading))
           return true;
-      }
-      else if(PromptGroups.isPickingUp(player, reading)) {
+      else if(PromptGroups.isPickingUp(player, reading))
           return true;
-      }
-      else if(PromptGroups.isWeilding(player, reading)) {
+      else if(PromptGroups.isWeilding(player, reading))
           return true;
-      }
-      else if(PromptGroups.isUsing(player, reading)) {
+      else if(PromptGroups.isUsing(player, reading))
           return true;
-      }
+      else if(PromptGroups.isWearing(player, reading))
+          return true;
+      else if(PromptGroups.isTakingOff(player, reading))
+          return true;
       else if(reading.equals("pickupall") || reading.equals("pall")) {
           for(int i = player.getNode().getItems().size() - 1; i >= 0; i--) {
-              player.pickUp(player.getNode().getItem(i));
+              player.pickUp(player.getNode().removeItem(i));
           }
           return true;
       }

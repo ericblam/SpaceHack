@@ -13,8 +13,8 @@ public class PromptGroups {
           System.out.println("pickup"); //
           System.out.println("look"); //
           System.out.println("weild"); //
-          System.out.println("puton");
-          System.out.println("takeoff");
+          System.out.println("puton"); //
+          System.out.println("takeoff"); //
           System.out.println("quit"); //
           System.out.println("use\n"); //
           System.out.println("Directions: Use 1-9 numberpad as directions, can be used instead of \"move\" command. asdw can also be used.");
@@ -276,6 +276,28 @@ public class PromptGroups {
           else {
               player.equip((Weapon)item);
           }
+      }
+      else return false;
+      return true;
+  }
+  
+  public static boolean isWearing(Unit player, String reading) {
+      if(reading.equals("W") || reading.equals("wear")) {
+          System.out.println("Wear which?");
+          Item item = inventoryPrompt(player);
+          if(!(item instanceof Armor))
+              System.out.println("You can't wear that, silly!");
+          else {
+              player.putOn((Armor)item);
+          }
+      }
+      else return false;
+      return true;
+  }
+  
+  public static boolean isTakingOff(Unit player, String reading) {
+      if(reading.equals("t") || reading.equals("takeoff")) {
+        player.putOn(null);
       }
       else return false;
       return true;
