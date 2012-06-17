@@ -3,19 +3,20 @@ public class PromptGroups {
   public static boolean isAskingForHelp(String reading) {
       if(reading.equals("help")) {
           System.out.println("\nCommands:");
-          System.out.println("help");
-          System.out.println("move");
-          System.out.println("open");
-          System.out.println("close");
-          System.out.println("shoot");
+          System.out.println("help"); //
+          System.out.println("move"); //
+          System.out.println("open"); //
+          System.out.println("close"); //
+          System.out.println("shoot/fire/attack"); //
+          System.out.println("reload");
+          System.out.println("drop");
           System.out.println("pickup");
           System.out.println("weild");
           System.out.println("puton");
-          System.out.println("quit");
+          System.out.println("quit"); //
           System.out.println("use\n");
           System.out.println("Directions: Use 1-9 numberpad as directions, can be used instead of \"move\" command. asdw can also be used.");
-          System.out.println("For quick movement, enter \"open\" (or similar commands) and direction.");
-          System.out.println("Ex: \"open 2\" Opens the door down. This doesn't work for blast doors, though.");
+          System.out.println("For extra help, please view README file.");
           System.out.println("\nReady to continue? (Press any key)");
           Keyboard.readWord();
           return true;
@@ -171,6 +172,57 @@ public class PromptGroups {
           return MapNode.UP_RIGHT;
       System.out.println("Nevermind.");
       return MapNode.THIS_SPACE;
+  }
+  
+  public static boolean isFiring(Unit player, String reading) {
+      if(reading.equals("fire") || reading.equals("f") || reading.equals("shoot") ||
+              reading.equals("s") || reading.equals("attack") || reading.equals("a")) {
+          player.attack(directionPrompt());
+      }
+      else if(reading.equals("f1") || reading.equals("s1") || reading.equals("a1"))
+          player.attack(1);
+      else if(reading.equals("f2") || reading.equals("fs") || reading.equals("s2")
+              || reading.equals("ss") || reading.equals("a2") || reading.equals("as"))
+          player.attack(2);
+      else if(reading.equals("f1") || reading.equals("s2") || reading.equals("a2"))
+          player.attack(3);
+      else if(reading.equals("f4") || reading.equals("fa") || reading.equals("s4")
+              || reading.equals("sa") || reading.equals("a4") || reading.equals("aa"))
+          player.attack(4);
+      else if(reading.equals("f6") || reading.equals("fd") || reading.equals("s6")
+              || reading.equals("sd") || reading.equals("a6") || reading.equals("ad"))
+          player.attack(6);
+      else if(reading.equals("f7") || reading.equals("s7") || reading.equals("a7"))
+          player.attack(7);
+      else if(reading.equals("f8") || reading.equals("fw") || reading.equals("s8")
+              || reading.equals("sw") || reading.equals("a8") || reading.equals("aw"))
+          player.attack(8);
+      else if(reading.equals("f9") || reading.equals("s9") || reading.equals("a9"))
+          player.attack(9);
+      else
+          return false;
+      return true;
+  }
+  
+  public static boolean isReloading(Unit player, String reading) {
+      if(reading.equals("r") || reading.equals("reload")) {
+          System.out.println("Pick Ammo");
+          Item ammo = inventoryPrompt(player);
+          if(ammo == null || !(ammo instanceof Ammo)) {
+              System.out.println("You can't do that, silly!");
+          }
+          else {
+              player.drop(player.reload((Ammo)ammo));
+          }
+      }
+      else
+          return false;
+      return true;
+  }
+  
+  public static Item inventoryPrompt(Unit player) {
+      System.out.println(player.getInventory());
+      return player.getInventory().remove(Keyboard.readInt());
   }
   
 }

@@ -76,6 +76,10 @@ public abstract class Unit extends BasicThing {
       return null;
   }
   
+  public Ammo reload(Ammo i) {
+      return hand.load(i);
+  }
+  
   public Inventory getInventory() {
       return inventory;
   }
@@ -93,6 +97,11 @@ public abstract class Unit extends BasicThing {
         inventory.add(i);
         i.pickedUpBy(this);
     }
+  }
+  
+  public void drop(Item i) {
+      i.pickedUpBy(null);
+      currentSpace.putItemDown(i);
   }
   
   public void equip(Weapon w) {

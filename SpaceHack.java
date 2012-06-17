@@ -34,16 +34,16 @@ public class SpaceHack {
       }
     }
     String ans = classChoosePrompt();
-    if(ans.equals("Soldier")) {
+    if(ans.equals("Soldier") || ans.equals("soldier")) {
         player = new Soldier(playerStart);
     }
-    else if(ans.equals("Scout")) {
+    else if(ans.equals("Scout") || ans.equals("scout")) {
         player = new Soldier(playerStart);
     }
-    else if(ans.equals("Sniper")) {
+    else if(ans.equals("Sniper") || ans.equals("sniper")) {
         player = new Soldier(playerStart);
     }
-    else if(ans.equals("Medic")) {
+    else if(ans.equals("Medic") || ans.equals("medic")) {
         player = new Soldier(playerStart);
     }
     else {
@@ -162,13 +162,17 @@ public class SpaceHack {
           return true;
       else if(PromptGroups.isClosingDoor(player, reading))
           return true;
+      else if(PromptGroups.isFiring(player, reading))
+          return true;
+      else if(PromptGroups.isReloading(player, reading))
+          return true;
       else if(PromptGroups.isAskingForHelp(reading)) {
           doStuff();
           return prompt();
       }
       else if(reading.equals("i") || reading.equals("inventory")) {
           System.out.println(printPlayerInventory());
-          System.out.println("\nReady to continue? (Press any key)");
+          System.out.println("Ready to continue? (Press any key)");
           Keyboard.readWord();
           doStuff();
           return prompt();

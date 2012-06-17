@@ -17,6 +17,10 @@ public abstract class Ammo extends Item {
         return shots;
     }
     
+    public int getMaxShots() {
+        return maxShots;
+    }
+    
     public void removeRounds(int rounds) {
         shots -= rounds;
         if(shots < 0)

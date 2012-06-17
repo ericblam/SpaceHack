@@ -22,7 +22,10 @@ public class Inventory {
   }
   
   public Item get(int i) {
-      return bag[i];
+      if(i < bag.length)
+        return bag[i];
+      else
+        return null;
   }
   
   public Item remove(int i) {
@@ -41,10 +44,14 @@ public class Inventory {
   
   public String toString() {
       String inv = "";
+      int counter = 0;
       for(int i = 0; i < bag.length; i++) {
           if(bag[i] != null) {
               inv += "(" + i + "):" + bag[i].inventoryPrint() + " ";
+              counter++;
           }
+          if(counter != 0 && counter % 5 == 0)
+              inv += "\n";
       }
       return inv;
   }

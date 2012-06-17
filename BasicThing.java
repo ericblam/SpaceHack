@@ -14,4 +14,8 @@ public abstract class BasicThing {
         symbol = c;
     }
     
+    public String toString() {
+        return "" + symbol;
+    }
+    
 }

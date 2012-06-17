@@ -60,4 +60,8 @@ public abstract class Weapon extends Item {
     public int getRange() {
         return r;
     }
+    
+    public String inventoryPrint() {
+        return super.inventoryPrint() + "(" + getAmmo().getShots() + "/" + getAmmo().getMaxShots() + ")";
+    }
 }
