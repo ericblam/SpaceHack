@@ -1,7 +1,9 @@
 public abstract class Unit extends BasicThing {
   
   public static final double MAX_LEVEL = 30;
-  public static String[] names = {"Joe","Mindy","Mark","JonAlf","Mike","Kelly","Eric","Lee"};
+  public static String[] names = {"Joe","Mindy","Mark","JonAlf","Mike","Kelly","Eric","Lee",
+                                  "EdwardJames","Bob","Hugo","Mr.Cool","Alej","Kevn",
+                                  "Jaxo","Blakè","Q","q","R4","Blay"};
     
   private MapNode currentSpace;
   
