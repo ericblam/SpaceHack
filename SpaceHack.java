@@ -11,6 +11,9 @@ public class SpaceHack {
   
   private static final int NUM_LEVELS = 5;
   
+  // Depending on how stuff works, you may have to add "SpaceHack/" to the beginning of the filenames.
+  private static final String DECK_3 = "SpaceHack/TwilightDeck3.dat";
+  
   public SpaceHack() {
     game = new Level[NUM_LEVELS];
     turns = 0;
@@ -21,8 +24,8 @@ public class SpaceHack {
   }
   
   public void setGame() {
-    game[3] = readLevel("SpaceHack/TwilightDeck3.dat");
-    char[][] map = fileToCharArray("SpaceHack/TwilightDeck3.dat");
+    game[3] = readLevel(DECK_3);
+    char[][] map = fileToCharArray(DECK_3);
     MapNode playerStart = game[currLevel].getNode(0,0);
     outer:
     for(int r = 0; r < map.length; r++) {
