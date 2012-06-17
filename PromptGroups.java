@@ -12,10 +12,10 @@ public class PromptGroups {
           System.out.println("drop"); //
           System.out.println("pickup"); //
           System.out.println("look"); //
-          System.out.println("weild");
+          System.out.println("weild"); //
           System.out.println("puton");
           System.out.println("quit"); //
-          System.out.println("use\n");
+          System.out.println("use\n"); //
           System.out.println("Directions: Use 1-9 numberpad as directions, can be used instead of \"move\" command. asdw can also be used.");
           System.out.println("For extra help, please view README file.");
           System.out.println("\nReady to continue? (Press any key)");
@@ -56,7 +56,6 @@ public class PromptGroups {
   
   public static boolean isOpeningDoor(Unit player, String reading) {
       if(reading.equals("open") || reading.equals("o")) {
-          System.out.println("In which direction?");
           MapNode nextNode = player.getNode().getDirection(directionPrompt());
           if(nextNode instanceof Door) {
               ((Door)(nextNode)).open();
@@ -72,7 +71,7 @@ public class PromptGroups {
               && player.getNode().getDirection(MapNode.DOWN) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN))).open();
       }
-      else if((reading.equals("open3") || reading.equals("o3") ) && player.getNode().getDirection(MapNode.DOWN_LEFT) instanceof Door) {
+      else if((reading.equals("open3") || reading.equals("o3") ) && player.getNode().getDirection(MapNode.DOWN_RIGHT) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN_RIGHT))).open();
       }
       else if((reading.equals("open4") || reading.equals("opena") || reading.equals("o4") || reading.equals("oa"))
@@ -95,12 +94,12 @@ public class PromptGroups {
       }
       else
           return false;
+      System.out.println("You opened the door.");
       return true;
   }
   
   public static boolean isClosingDoor(Unit player, String reading) {
       if(reading.equals("close") || reading.equals("c")) {
-          System.out.println("In which direction?");
           MapNode nextNode = player.getNode().getDirection(directionPrompt());
           if(nextNode instanceof Door) {
               ((Door)(nextNode)).close();
@@ -116,7 +115,7 @@ public class PromptGroups {
               && player.getNode().getDirection(MapNode.DOWN) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN))).close();
       }
-      else if((reading.equals("close3") || reading.equals("c3") ) && player.getNode().getDirection(MapNode.DOWN_LEFT) instanceof Door) {
+      else if((reading.equals("close3") || reading.equals("c3") ) && player.getNode().getDirection(MapNode.DOWN_RIGHT) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN_RIGHT))).close();
       }
       else if((reading.equals("close4") || reading.equals("closea") || reading.equals("c4") || reading.equals("ca"))
@@ -139,6 +138,7 @@ public class PromptGroups {
       }
       else
           return false;
+      System.out.println("You closed the door.");
       return true;
   }
   
@@ -152,6 +152,7 @@ public class PromptGroups {
   }
   
   public static int directionPrompt() {
+      System.out.println("In what direction?");
       String reading = Keyboard.readWord();
       if(reading.equals("1"))
           return MapNode.DOWN_LEFT;
@@ -185,7 +186,7 @@ public class PromptGroups {
       else if(reading.equals("f2") || reading.equals("fs") || reading.equals("s2")
               || reading.equals("ss") || reading.equals("a2") || reading.equals("as"))
           player.attack(2);
-      else if(reading.equals("f1") || reading.equals("s2") || reading.equals("a2"))
+      else if(reading.equals("f3") || reading.equals("s2") || reading.equals("a2"))
           player.attack(3);
       else if(reading.equals("f4") || reading.equals("fa") || reading.equals("s4")
               || reading.equals("sa") || reading.equals("a4") || reading.equals("aa"))
@@ -260,6 +261,20 @@ public class PromptGroups {
           System.out.println("Use which?");
           Item item = inventoryPrompt(player);
           item.use();
+      }
+      else return false;
+      return true;
+  }
+  
+  public static boolean isWeilding(Unit player, String reading) {
+      if(reading.equals("w") || reading.equals("wield")) {
+          System.out.println("Wield which?");
+          Item item = inventoryPrompt(player);
+          if(!(item instanceof Weapon))
+              System.out.println("You can't wield that, silly!");
+          else {
+              player.equip((Weapon)item);
+          }
       }
       else return false;
       return true;

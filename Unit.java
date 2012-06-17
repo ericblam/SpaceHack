@@ -1,12 +1,16 @@
 public abstract class Unit extends BasicThing {
   
   public static final double MAX_LEVEL = 30;
+  public static String[] names = {"Joe","Mindy","Mark","JonAlf","Mike","Kelly","Eric","Lee"};
     
   private MapNode currentSpace;
   
   private Weapon hand;
   private Armor clothes;
   private Inventory inventory;
+  
+  private String name;
+  
   private double health;
   private double maxHealth;
   private double attack;
@@ -15,7 +19,7 @@ public abstract class Unit extends BasicThing {
   private boolean isFriendly;
   private char symbol;
   
-  Unit(MapNode m, double h, double maxH, double at, double s, double l, boolean friendly) {
+  Unit(MapNode m, double h, double maxH, double at, double s, double l, boolean friendly, String n) {
     super();
     currentSpace = m;
     m.putCharacter(this);
@@ -29,6 +33,7 @@ public abstract class Unit extends BasicThing {
     clothes = null;
     setSymbol('@');
     isFriendly = friendly;
+    name = n;
   }
   
   public void kill() {
@@ -56,19 +61,34 @@ public abstract class Unit extends BasicThing {
       }
   }
   
+  public static String randomName() {
+      return Unit.names[(int)(Math.random() * names.length)];
+  }
+  
   public void attack(int direction) {
       Unit attacked;
       if(hand != null && hand.getAmmo().getShots() > 0) {
           attacked = hand.fire(direction);
+          if(attacked != null)
+              System.out.println("You shot " + attacked.getName() + "!");
+          
       }
       else {
           attacked = melee(direction);
+          if(attacked != null)
+              System.out.println("You hit " + attacked.getName() + "!");
       }
       if(attacked != null && attacked.getHealth() <= 0) {
-          level += attacked.getExp();
+          if(attacked.isFriendly())
+            level -= Math.sqrt(attacked.getExp());
+          else
+            level += Math.sqrt(attacked.getExp());
           attacked.kill();
+          if(level < 1.0)
+              level = 1.0;
           if(level > MAX_LEVEL)
               level = MAX_LEVEL;
+          System.out.println(attacked.getName() + " was killed!");
       }
   }
   
@@ -77,6 +97,12 @@ public abstract class Unit extends BasicThing {
       if(next.getCharacter() != null && !next.getCharacter().isFriendly()) {
           next.getCharacter().addHealth(-attack);
           return next.getCharacter();
+      }
+      else if(next.getCharacter() != null && next.getCharacter().isFriendly()) {
+          if(PromptGroups.clarificationPrompt()) {
+            next.getCharacter().addHealth(-attack);
+            return next.getCharacter();
+          }
       }
       return null;
   }
@@ -114,8 +140,10 @@ public abstract class Unit extends BasicThing {
       currentSpace.putItemDown(i);
   }
   
-  public void equip(Weapon w) {
+  public Weapon equip(Weapon w) {
+      Weapon oldWeapon = hand;
       hand = w;
+      return oldWeapon;
   }
   
   public Ammo loadWeapon(Ammo i) {
@@ -151,15 +179,21 @@ public abstract class Unit extends BasicThing {
       return isFriendly;
   }
   
+  public String getName() {
+      return name;
+  }
+  
   public String toString() {
       return "" + getSymbol();
   }
   
   public String statString() {
       String stat = "";
+      stat += name + "\t";
       stat += "HP: " + health + "/" + maxHealth + "\t";
       stat += "Level/Exp: " + level + "\t";
       stat += "Character at: (" + getNode().getX() + "," + getNode().getY() + ")";
+      stat += "\t " + getClass().getName();
       stat += "\nWeilding: ";
       if(hand == null)
           stat += "null";

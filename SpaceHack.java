@@ -33,22 +33,26 @@ public class SpaceHack {
           }
       }
     }
+    String name = namePrompt();
     String ans = classChoosePrompt();
     if(ans.equals("Soldier") || ans.equals("soldier")) {
-        player = new Soldier(playerStart);
+        player = new Soldier(playerStart, name);
     }
     else if(ans.equals("Scout") || ans.equals("scout")) {
-        player = new Soldier(playerStart);
+        player = new Soldier(playerStart, name);
     }
     else if(ans.equals("Sniper") || ans.equals("sniper")) {
-        player = new Soldier(playerStart);
+        player = new Soldier(playerStart, name);
     }
     else if(ans.equals("Medic") || ans.equals("medic")) {
-        player = new Soldier(playerStart);
+        player = new Soldier(playerStart, name);
     }
     else {
-        player = new Soldier(playerStart);
+        player = new Soldier(playerStart, name);
     }
+    System.out.println("Welcome back from your sleep, " + player.getName());
+    System.out.println("Remember that you are a " + player.getClass().getName());
+    System.out.println("When you awake, please head on to the bridge.");
   }
   
   // Reads a level from a text file.
@@ -77,7 +81,7 @@ public class SpaceHack {
           grid[r][c] = new PlayerBed(level,c,r);
         else if(curr == Level.CREW_SPAWN_CHAR) {
           grid[r][c] = new CrewSpawn(level,c,r);
-          characters.add(new Crewman(grid[r][c]));
+          characters.add(new Crewman(grid[r][c], Unit.randomName()));
         }
         else
           grid[r][c] = new Space(level,c,r);
@@ -138,11 +142,17 @@ public class SpaceHack {
       return player.getInventory().toString();
   }
   
+  public String namePrompt() {
+      System.out.println("What is your name?");
+      return Keyboard.readString();
+  }
+  
   public String classChoosePrompt() {
       System.out.println("What class would you like to be?");
       System.out.println("(\"Soldier\",\"Scout\",\"Sniper\",\"Medic\",\"Heavy\")?");
       String ans = Keyboard.readWord();
-      if(!ans.equals("Soldier") && !ans.equals("Scout") && !ans.equals("Sniper") && !ans.equals("Medic") && !ans.equals("Heavy")) {
+      if(!ans.equals("Soldier") && !ans.equals("Scout") && !ans.equals("Sniper") && !ans.equals("Medic") && !ans.equals("Heavy") &&
+              !ans.equals("soldier") && !ans.equals("scout") && !ans.equals("sniper") && !ans.equals("medic") && !ans.equals("heavy")) {
           System.out.println("Sorry, that is not a valid answer.");
           return classChoosePrompt();
       }
@@ -172,7 +182,16 @@ public class SpaceHack {
       else if(PromptGroups.isPickingUp(player, reading)) {
           return true;
       }
+      else if(PromptGroups.isWeilding(player, reading)) {
+          return true;
+      }
       else if(PromptGroups.isUsing(player, reading)) {
+          return true;
+      }
+      else if(reading.equals("pickupall") || reading.equals("pall")) {
+          for(int i = player.getNode().getItems().size() - 1; i >= 0; i--) {
+              player.pickUp(player.getNode().getItem(i));
+          }
           return true;
       }
       else if(PromptGroups.isAskingForHelp(reading)) {

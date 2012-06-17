@@ -5,8 +5,8 @@ public class Crewman extends Unit {
   public static final double DEFAULT_CREWMAN_ATTACK = 1.5;
   public static final double DEFAULT_CREWMAN_STRENGTH = 100.0;
   
-  public Crewman(MapNode m) {
-    super(m,DEFAULT_CREWMAN_HEALTH,DEFAULT_CREWMAN_HEALTH,DEFAULT_CREWMAN_ATTACK,DEFAULT_CREWMAN_STRENGTH,1.0,true);
+  public Crewman(MapNode m, String name) {
+    super(m,DEFAULT_CREWMAN_HEALTH,DEFAULT_CREWMAN_HEALTH,DEFAULT_CREWMAN_ATTACK,DEFAULT_CREWMAN_STRENGTH,1.0,true,name);
     setInventory(new Inventory(CREWMAN_INVENTORY_SIZE));
     pickUp(new Pistol());
     equip((Weapon)(getInventory().get(0)));

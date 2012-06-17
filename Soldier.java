@@ -5,8 +5,8 @@ public class Soldier extends Unit {
   public static final double DEFAULT_SOLDIER_ATTACK = 3.5;
   public static final double DEFAULT_SOLDIER_STRENGTH = 200.0;
   
-  public Soldier(MapNode m) {
-    super(m,DEFAULT_SOLDIER_HEALTH,DEFAULT_SOLDIER_HEALTH,DEFAULT_SOLDIER_ATTACK,DEFAULT_SOLDIER_STRENGTH,1.0,true);
+  public Soldier(MapNode m, String name) {
+    super(m,DEFAULT_SOLDIER_HEALTH,DEFAULT_SOLDIER_HEALTH,DEFAULT_SOLDIER_ATTACK,DEFAULT_SOLDIER_STRENGTH,1.0,true,name);
     setInventory(new Inventory(SOLDIER_INVENTORY_SIZE));
     // Starts equipped with AR, two Medpacks, some Ammo
     pickUp(new AssaultRifle());
