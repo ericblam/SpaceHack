@@ -101,6 +101,8 @@ public abstract class Unit extends BasicThing {
   
   public void drop(Item i) {
       i.pickedUpBy(null);
+      if(i == hand)
+          hand = null;
       currentSpace.putItemDown(i);
   }
   
@@ -147,10 +149,15 @@ public abstract class Unit extends BasicThing {
   
   public String statString() {
       String stat = "";
-      stat += "HP: " + health + "/" + maxHealth + "\t\t";
-      stat += "Level/Exp: " + level + "\t\t";
+      stat += "HP: " + health + "/" + maxHealth + "\t";
+      stat += "Level/Exp: " + level + "\t";
       stat += "Character at: (" + getNode().getX() + "," + getNode().getY() + ")";
-      stat += "\nMax Weight Carryable: " + strength + "\tInventory Weight: " + inventory.weight();
+      stat += "\nWeilding: ";
+      if(hand == null)
+          stat += "null";
+      else
+          stat += hand.inventoryPrint();
+      stat += "\tMax Weight Carryable: " + strength + "\tInventory Weight: " + inventory.weight();
       return stat;
   }
   

@@ -166,7 +166,17 @@ public class SpaceHack {
           return true;
       else if(PromptGroups.isReloading(player, reading))
           return true;
+      else if(PromptGroups.isDropping(player, reading)) {
+          return true;
+      }
       else if(PromptGroups.isAskingForHelp(reading)) {
+          doStuff();
+          return prompt();
+      }
+      else if(reading.equals("l") || reading.equals("look")) {
+          System.out.println(player.getNode().printItems());
+          System.out.println("Ready to continue? (Press any key)");
+          Keyboard.readWord();
           doStuff();
           return prompt();
       }

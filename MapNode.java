@@ -115,4 +115,17 @@ public class MapNode extends BasicThing {
   public String toString() {
       return "" + getSymbol();
   }
+  
+  public String printItems() {
+      String items = "";
+      int counter = 0;
+      for(int i = 0; i < itemsOn.size(); i++) {
+        items += "(" + i + "):" + itemsOn.get(i).inventoryPrint() + " ";
+        counter++;
+        if(counter != 0 && counter % 5 == 0)
+          items += "\n";
+      }
+      return items;
+  }
+  
 }

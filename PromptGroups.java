@@ -8,9 +8,10 @@ public class PromptGroups {
           System.out.println("open"); //
           System.out.println("close"); //
           System.out.println("shoot/fire/attack"); //
-          System.out.println("reload");
+          System.out.println("reload"); //
           System.out.println("drop");
           System.out.println("pickup");
+          System.out.println("look");
           System.out.println("weild");
           System.out.println("puton");
           System.out.println("quit"); //
@@ -199,6 +200,22 @@ public class PromptGroups {
           player.attack(8);
       else if(reading.equals("f9") || reading.equals("s9") || reading.equals("a9"))
           player.attack(9);
+      else
+          return false;
+      return true;
+  }
+  
+  public static boolean isDropping(Unit player, String reading) {
+      if(reading.equals("d") || reading.equals("drop")) {
+          System.out.println("What do you want to drop?");
+          Item dropped = inventoryPrompt(player);
+          if(dropped == null) {
+              System.out.println("You can't do that, silly!");
+          }
+          else {
+              player.drop(dropped);
+          }
+      }
       else
           return false;
       return true;
