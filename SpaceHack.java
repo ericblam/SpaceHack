@@ -152,7 +152,50 @@ public class SpaceHack {
       if(reading.equals("Quit") || reading.equals("quit")) {
           return false;
       }
+      if(reading.equals("help")) {
+          System.out.println("Commands:");
+          System.out.println("help");
+          System.out.println("move");
+          System.out.println("open");
+      }
+      if(reading.equals("move")) {
+          System.out.println("In which direction?");
+          player.move(directionPrompt());
+      }
       return true;
+  }
+  
+  public boolean clarificationPrompt() {
+      System.out.println("Are you sure?");
+      boolean ans = false;
+      String reading = Keyboard.readWord();
+      if(reading.equals("yes") || reading.equals("y") || reading.equals("Y") || reading.equals("Yes"))
+        ans = true;
+      return ans;
+  }
+  
+  public int directionPrompt() {
+      String reading = Keyboard.readWord();
+      if(reading.equals("1"))
+          return MapNode.DOWN_LEFT;
+      if(reading.equals("2") || reading.equals("s"))
+          return MapNode.DOWN;
+      if(reading.equals("3"))
+          return MapNode.DOWN_RIGHT;
+      if(reading.equals("4") || reading.equals("a"))
+          return MapNode.LEFT;
+      if(reading.equals("5"))
+          return MapNode.THIS_SPACE;
+      if(reading.equals("6") || reading.equals("d"))
+          return MapNode.RIGHT;
+      if(reading.equals("7"))
+          return MapNode.UP_LEFT;
+      if(reading.equals("8") || reading.equals("w"))
+          return MapNode.UP;
+      if(reading.equals("9"))
+          return MapNode.UP_RIGHT;
+      System.out.println("Nevermind.");
+      return MapNode.THIS_SPACE;
   }
   
   public void doStuff() {
@@ -160,4 +203,7 @@ public class SpaceHack {
       System.out.println(printPlayerStats());
   }
   
+  public void nextTurn() {
+      turns++;
+  }
 }
