@@ -109,6 +109,14 @@ public class MapNode {
       symbol = c;
   }
   
+  public ArrayList<Item> getItems() {
+      return itemsOn;
+  }
+  
+  public void putItemDown(Item i) {
+      itemsOn.add(i);
+  }
+  
   public String toString() {
       return "" + symbol;
   }

@@ -40,6 +40,9 @@ public class Level {
               if(grid[r][c].getCharacter() != null) {
                   level += charOn.toString();
               }
+              else if (grid[r][c].getItems().size() != 0) {
+                  level += grid[r][c].getItems().get(0).toString();
+              }
               else {
                   level += grid[r][c].toString();
               }
