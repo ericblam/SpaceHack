@@ -7,6 +7,7 @@ public class SpaceHackRunner {
       while(continuing) {
           SHgame.doStuff();
           continuing = SHgame.prompt();
+          SHgame.nextTurn();
       }
   }
     

@@ -5,6 +5,7 @@ public abstract class Unit {
   private MapNode currentSpace;
   
   private Weapon hand;
+  private Armor clothes;
   private Inventory inventory;
   private double health;
   private double maxHealth;
@@ -24,6 +25,7 @@ public abstract class Unit {
     level = l;
     inventory = new Inventory(Inventory.DEFAULT_BAG_SIZE);
     hand = null;
+    clothes = null;
     symbol = '@';
     isFriendly = friendly;
   }
@@ -102,6 +104,16 @@ public abstract class Unit {
   
   public Ammo loadWeapon(Ammo i) {
     return hand.load(i);
+  }
+  
+  public Armor putOn(Armor a) {
+      Armor oldArmor = clothes;
+      clothes = a;
+      return oldArmor;
+  }
+  
+  public Armor getArmor() {
+      return clothes;
   }
   
   public double getHealth() {

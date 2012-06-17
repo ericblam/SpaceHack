@@ -148,20 +148,13 @@ public class SpaceHack {
   }
   
   public boolean prompt() {
-      String reading = Keyboard.readWord();
+      String reading = Keyboard.readString();
       if(reading.equals("Quit") || reading.equals("quit")) {
           return false;
       }
-      if(reading.equals("help")) {
-          System.out.println("Commands:");
-          System.out.println("help");
-          System.out.println("move");
-          System.out.println("open");
-      }
-      if(reading.equals("move")) {
-          System.out.println("In which direction?");
-          player.move(directionPrompt());
-      }
+      PromptGroups.isAskingForHelp(reading);
+      PromptGroups.isMoving(player, reading);
+      PromptGroups.isOpeningDoor(player, reading);
       return true;
   }
   
@@ -174,7 +167,7 @@ public class SpaceHack {
       return ans;
   }
   
-  public int directionPrompt() {
+  public static int directionPrompt() {
       String reading = Keyboard.readWord();
       if(reading.equals("1"))
           return MapNode.DOWN_LEFT;
