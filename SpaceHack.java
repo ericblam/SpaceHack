@@ -134,6 +134,10 @@ public class SpaceHack {
       return player.statString();
   }
   
+  public String printPlayerInventory() {
+      return player.getInventory().toString() + "\tTurn: " + turns;
+  }
+  
   public String classChoosePrompt() {
       System.out.println("What class would you like to be?");
       System.out.println("(\"Soldier\",\"Scout\",\"Sniper\",\"Medic\",\"Heavy\")?");

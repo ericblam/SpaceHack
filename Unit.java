@@ -1,4 +1,4 @@
-public abstract class Unit {
+public abstract class Unit extends BasicThing {
   
   public static final double MAX_LEVEL = 30;
     
@@ -16,6 +16,7 @@ public abstract class Unit {
   private char symbol;
   
   Unit(MapNode m, double h, double maxH, double at, double s, double l, boolean friendly) {
+    super();
     currentSpace = m;
     m.putCharacter(this);
     health = h;
@@ -26,7 +27,7 @@ public abstract class Unit {
     inventory = new Inventory(Inventory.DEFAULT_BAG_SIZE);
     hand = null;
     clothes = null;
-    symbol = '@';
+    setSymbol('@');
     isFriendly = friendly;
   }
   
@@ -83,10 +84,6 @@ public abstract class Unit {
     inventory = i;
   }
   
-  public void setSymbol(char c) {
-      symbol = c;
-  }
-  
   public double getExp() {
       return level;
   }
@@ -136,7 +133,7 @@ public abstract class Unit {
   }
   
   public String toString() {
-      return "" + symbol;
+      return "" + getSymbol();
   }
   
   public String statString() {
@@ -144,7 +141,7 @@ public abstract class Unit {
       stat += "HP: " + health + "/" + maxHealth + "\t\t";
       stat += "Level/Exp: " + level + "\t\t";
       stat += "Character at: (" + getNode().getX() + "," + getNode().getY() + ")";
-      stat += "\nMax Weight Carryable: " + strength + "\t\tInventory Weight: " + inventory.weight();
+      stat += "\nMax Weight Carryable: " + strength + "\tInventory Weight: " + inventory.weight();
       return stat;
   }
   

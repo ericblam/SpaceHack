@@ -33,4 +33,14 @@ public class Inventory {
       return weight;
   }
   
+  public String toString() {
+      String inv = "";
+      for(int i = 0; i < bag.length; i++) {
+          if(bag[i] != null) {
+              inv += "(" + i + "): " + bag[i].getClass().getName();
+          }
+      }
+      return inv;
+  }
+  
 }

@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class MapNode {
+public class MapNode extends BasicThing {
   
   public static final int UP = 8;
   public static final int UP_RIGHT = 9;
@@ -26,9 +26,9 @@ public class MapNode {
   private double traction;
   private boolean passable;
   
-  private char symbol;
-  
   public MapNode(Level g, int x, int y, String t, int d, double tr, boolean p) {
+    super();
+    setSymbol(' ');
     grid = g;
     characterOn = null;
     itemsOn = new ArrayList<Item>();
@@ -38,7 +38,6 @@ public class MapNode {
     defense = d;
     traction = tr;
     passable = p;
-    symbol = ' ';
   }
   
   public void effect(){
@@ -105,10 +104,6 @@ public class MapNode {
       passable = pass;
   }
   
-  public void setSymbol(char c) {
-      symbol = c;
-  }
-  
   public ArrayList<Item> getItems() {
       return itemsOn;
   }
@@ -118,6 +113,6 @@ public class MapNode {
   }
   
   public String toString() {
-      return "" + symbol;
+      return "" + getSymbol();
   }
 }
