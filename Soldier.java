@@ -11,6 +11,8 @@ public class Soldier extends Unit {
     // Starts equipped with AR, two Medpacks, some Ammo
     pickUp(new AssaultRifle());
     equip((Weapon)(getInventory().get(0)));
+    pickUp(new StandardArmor());
+    putOn((Armor)(getInventory().get(1)));
     pickUp(new Medpack());
     pickUp(new Medpack());
     for(int i = 0; i < 4; i++) {

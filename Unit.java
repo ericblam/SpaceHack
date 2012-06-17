@@ -3,7 +3,7 @@ public abstract class Unit extends BasicThing {
   public static final double MAX_LEVEL = 30;
   public static String[] names = {"Joe","Mindy","Mark","JonAlf","Mike","Kelly","Eric","Lee",
                                   "EdwardJames","Bob","Hugo","Mr.Cool","Alej","Kevn",
-                                  "Jaxo","Blakè","Q","q","R4","Blay"};
+                                  "Jaxo","Blakè","Q","q","R4","Blay","Mr.Rhee"};
     
   private MapNode currentSpace;
   
@@ -139,6 +139,8 @@ public abstract class Unit extends BasicThing {
       i.pickedUpBy(null);
       if(i == hand)
           hand = null;
+      if(i == clothes)
+          clothes = null;
       currentSpace.putItemDown(i);
   }
   
@@ -195,10 +197,15 @@ public abstract class Unit extends BasicThing {
       stat += "HP: " + health + "/" + maxHealth + "\t";
       stat += "Level/Exp: " + level + "\t";
       stat += "Character at: (" + getNode().getX() + "," + getNode().getY() + ")";
+      stat += "\tWearing: ";
+      if(hand == null)
+          stat += "nothing";
+      else
+          stat += clothes.inventoryPrint();
       stat += "\t " + getClass().getName();
       stat += "\nWeilding: ";
       if(hand == null)
-          stat += "null";
+          stat += "nothing";
       else
           stat += hand.inventoryPrint();
       stat += "\tMax Weight Carryable: " + strength + "\tInventory Weight: " + inventory.weight();

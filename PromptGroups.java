@@ -14,6 +14,7 @@ public class PromptGroups {
           System.out.println("look"); //
           System.out.println("weild"); //
           System.out.println("puton");
+          System.out.println("takeoff");
           System.out.println("quit"); //
           System.out.println("use\n"); //
           System.out.println("Directions: Use 1-9 numberpad as directions, can be used instead of \"move\" command. asdw can also be used.");
