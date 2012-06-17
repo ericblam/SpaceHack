@@ -92,11 +92,14 @@ public abstract class Unit extends BasicThing {
       return level;
   }
   
-  public void pickUp(Item i) {
+  public boolean pickUp(Item i) {
     if(inventory.weight() + i.weight() <= strength) {
-        inventory.add(i);
-        i.pickedUpBy(this);
+        if(inventory.add(i)) {
+            i.pickedUpBy(this);
+            return true;
+        }
     }
+    return false;
   }
   
   public void drop(Item i) {

@@ -169,6 +169,9 @@ public class SpaceHack {
       else if(PromptGroups.isDropping(player, reading)) {
           return true;
       }
+      else if(PromptGroups.isPickingUp(player, reading)) {
+          return true;
+      }
       else if(PromptGroups.isAskingForHelp(reading)) {
           doStuff();
           return prompt();

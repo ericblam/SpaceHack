@@ -221,6 +221,24 @@ public class PromptGroups {
       return true;
   }
   
+  public static boolean isPickingUp(Unit player, String reading) {
+      if(reading.equals("p") || reading.equals("pickup")) {
+          System.out.println(player.getNode().printItems());
+          System.out.print("Pick up which item? ");
+          Item i = player.getNode().removeItem(Keyboard.readInt());
+          if(i == null)
+              System.out.println("You can't do that, silly!");
+          else {
+              boolean picked = player.pickUp(i);
+              if(!picked)
+                  player.getNode().putItemDown(i);
+          } 
+      }
+      else
+          return false;
+      return true;
+  }
+  
   public static boolean isReloading(Unit player, String reading) {
       if(reading.equals("r") || reading.equals("reload")) {
           System.out.println("Pick Ammo");

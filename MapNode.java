@@ -108,6 +108,22 @@ public class MapNode extends BasicThing {
       return itemsOn;
   }
   
+  public Item getItem(int i) {
+      if(i < getItems().size()) {
+          return getItems().get(i);
+      }
+      else
+          return null;
+  }
+  
+  public Item removeItem(int i) {
+      if(i < getItems().size()) {
+          return itemsOn.remove(i);
+      }
+      else
+          return null;
+  }
+  
   public void putItemDown(Item i) {
       itemsOn.add(i);
   }

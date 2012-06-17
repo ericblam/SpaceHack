@@ -49,9 +49,9 @@ public class Inventory {
           if(bag[i] != null) {
               inv += "(" + i + "):" + bag[i].inventoryPrint() + " ";
               counter++;
+              if(counter % 5 == 0)
+                  inv += "\n";
           }
-          if(counter != 0 && counter % 5 == 0)
-              inv += "\n";
       }
       return inv;
   }
