@@ -139,4 +139,13 @@ public abstract class Unit {
       return "" + symbol;
   }
   
+  public String statString() {
+      String stat = "";
+      stat += "HP: " + health + "/" + maxHealth + "\t\t";
+      stat += "Level/Exp: " + level + "\t\t";
+      stat += "Character at: (" + getNode().getX() + "," + getNode().getY() + ")";
+      stat += "\nMax Weight Carryable: " + strength + "\t\tInventory Weight: " + inventory.weight();
+      return stat;
+  }
+  
 }

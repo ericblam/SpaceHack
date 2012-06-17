@@ -131,7 +131,7 @@ public class SpaceHack {
   }
   
   public String printPlayerStats() {
-      return "";
+      return player.statString();
   }
   
   public String classChoosePrompt() {

@@ -2,7 +2,7 @@ public class PromptGroups {
     
     public static void isAskingForHelp(String reading) {
       if(reading.equals("help")) {
-          System.out.println("Commands:");
+          System.out.println("\nCommands:");
           System.out.println("help");
           System.out.println("move");
           System.out.println("open");
@@ -14,7 +14,7 @@ public class PromptGroups {
           System.out.println("Directions: Use 1-9 numberpad as directions, can be used instead of \"move\" command. asdw can also be used.");
           System.out.println("For quick movement, enter \"open\" (or similar commands) and direction.");
           System.out.println("Ex: \"open 2\" Opens the door down. This doesn't work for blast doors, though.");
-          System.out.println("Ready to continue?");
+          System.out.println("\nReady to continue? (Press any key)");
           Keyboard.readWord();
       }
   }
@@ -58,7 +58,7 @@ public class PromptGroups {
       if((reading.equals("open1") || reading.equals("o1") ) && player.getNode().getDirection(MapNode.DOWN_LEFT) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN_LEFT))).open();
       }
-      if((reading.equals("open2") || reading.equals("opens") || reading.equals("o1") || reading.equals("os"))
+      if((reading.equals("open2") || reading.equals("opens") || reading.equals("o2") || reading.equals("os"))
               && player.getNode().getDirection(MapNode.DOWN) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN))).open();
       }
@@ -99,7 +99,7 @@ public class PromptGroups {
       if((reading.equals("close1") || reading.equals("c1") ) && player.getNode().getDirection(MapNode.DOWN_LEFT) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN_LEFT))).close();
       }
-      if((reading.equals("close2") || reading.equals("closes") || reading.equals("c1") || reading.equals("cs"))
+      if((reading.equals("close2") || reading.equals("closes") || reading.equals("c2") || reading.equals("cs"))
               && player.getNode().getDirection(MapNode.DOWN) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN))).close();
       }
