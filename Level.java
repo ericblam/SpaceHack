@@ -7,6 +7,8 @@ public class Level {
   public static final char ELEVATOR_CHAR = 'X';
   public static final char BLAST_DOOR_CHAR = '+';
   public static final char PLAYER_BED_CHAR = '~';
+  public static final char LOCKER_CHAR = '$';
+  public static final char ITEM_SPAWN_CHAR = 'i';
   public static final char CREW_SPAWN_CHAR = 'o';
   
   private MapNode[][] grid;

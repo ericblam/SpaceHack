@@ -79,6 +79,8 @@ public class SpaceHack {
           grid[r][c] = new BlastDoor(level,c,r);
         else if(curr == Level.PLAYER_BED_CHAR)
           grid[r][c] = new PlayerBed(level,c,r);
+        else if(curr == Level.LOCKER_CHAR)
+          grid[r][c] = new Locker(level,c,r);
         else if(curr == Level.CREW_SPAWN_CHAR) {
           grid[r][c] = new CrewSpawn(level,c,r);
           characters.add(new Crewman(grid[r][c], Unit.randomName()));
