@@ -55,7 +55,7 @@ public class PromptGroups {
               ((BlastDoor)(nextNode)).open();
           }
       }
-      if((reading.equals("open 1") || reading.equals("o1") ) && player.getNode().getDirection(MapNode.DOWN_LEFT) instanceof Door) {
+      if((reading.equals("open1") || reading.equals("o1") ) && player.getNode().getDirection(MapNode.DOWN_LEFT) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.DOWN_LEFT))).open();
       }
       if((reading.equals("open2") || reading.equals("opens") || reading.equals("o1") || reading.equals("os"))
@@ -82,6 +82,47 @@ public class PromptGroups {
       }
       if((reading.equals("open9") || reading.equals("o9") ) && player.getNode().getDirection(MapNode.UP_RIGHT) instanceof Door) {
           ((Door)(player.getNode().getDirection(MapNode.UP_RIGHT))).open();
+      }
+  }
+  
+  public static void isClosingDoor(Unit player, String reading) {
+      if(reading.equals("close") || reading.equals("c")) {
+          System.out.println("In which direction?");
+          MapNode nextNode = player.getNode().getDirection(SpaceHack.directionPrompt());
+          if(nextNode instanceof Door) {
+              ((Door)(nextNode)).close();
+          }
+          else if(nextNode instanceof BlastDoor &&player.getArmor() instanceof VacSuit) {
+              ((BlastDoor)(nextNode)).close();
+          }
+      }
+      if((reading.equals("close1") || reading.equals("c1") ) && player.getNode().getDirection(MapNode.DOWN_LEFT) instanceof Door) {
+          ((Door)(player.getNode().getDirection(MapNode.DOWN_LEFT))).close();
+      }
+      if((reading.equals("close2") || reading.equals("closes") || reading.equals("c1") || reading.equals("cs"))
+              && player.getNode().getDirection(MapNode.DOWN) instanceof Door) {
+          ((Door)(player.getNode().getDirection(MapNode.DOWN))).close();
+      }
+      if((reading.equals("close3") || reading.equals("c3") ) && player.getNode().getDirection(MapNode.DOWN_LEFT) instanceof Door) {
+          ((Door)(player.getNode().getDirection(MapNode.DOWN_RIGHT))).close();
+      }
+      if((reading.equals("close4") || reading.equals("closea") || reading.equals("c4") || reading.equals("ca"))
+              && player.getNode().getDirection(MapNode.LEFT) instanceof Door) {
+          ((Door)(player.getNode().getDirection(MapNode.LEFT))).close();
+      }
+      if((reading.equals("close6") || reading.equals("closed") || reading.equals("c6") || reading.equals("cd"))
+              && player.getNode().getDirection(MapNode.RIGHT) instanceof Door) {
+          ((Door)(player.getNode().getDirection(MapNode.RIGHT))).close();
+      }
+      if((reading.equals("close7") || reading.equals("c7") ) && player.getNode().getDirection(MapNode.UP_LEFT) instanceof Door) {
+          ((Door)(player.getNode().getDirection(MapNode.UP_LEFT))).close();
+      }
+      if((reading.equals("close8") || reading.equals("closew") || reading.equals("c8") || reading.equals("cw"))
+              && player.getNode().getDirection(MapNode.UP) instanceof Door) {
+          ((Door)(player.getNode().getDirection(MapNode.UP))).close();
+      }
+      if((reading.equals("close9") || reading.equals("c9") ) && player.getNode().getDirection(MapNode.UP_RIGHT) instanceof Door) {
+          ((Door)(player.getNode().getDirection(MapNode.UP_RIGHT))).close();
       }
   }
     

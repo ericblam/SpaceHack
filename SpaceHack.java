@@ -155,6 +155,7 @@ public class SpaceHack {
       PromptGroups.isAskingForHelp(reading);
       PromptGroups.isMoving(player, reading);
       PromptGroups.isOpeningDoor(player, reading);
+      PromptGroups.isClosingDoor(player, reading);
       return true;
   }
   
