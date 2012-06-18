@@ -10,15 +10,18 @@ public class Level {
   public static final char LOCKER_CHAR = '$';
   public static final char ITEM_SPAWN_CHAR = 'i';
   public static final char CREW_SPAWN_CHAR = 'o';
+  public static final char ENEMYSPAWN_CHAR = '%';
   
   private MapNode[][] grid;
+  private SpaceHack game;
   
-  public Level() {
+  public Level(SpaceHack g) {
       grid = null;
+      game = g;
   }
   
-  public Level(MapNode[][] g) {
-    grid = g;
+  public SpaceHack getSH() {
+      return game;
   }
   
   public MapNode getNode(int x, int y) {

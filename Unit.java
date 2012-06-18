@@ -193,7 +193,7 @@ public abstract class Unit extends BasicThing {
   
   public String statString() {
       String stat = "";
-      stat += name + "\t";
+      stat += name + " the " + getClass().getName() + "\t";
       stat += "HP: " + health + "/" + maxHealth + "\t";
       stat += "Level/Exp: " + level + "\t";
       stat += "Character at: (" + getNode().getX() + "," + getNode().getY() + ")";
@@ -202,7 +202,6 @@ public abstract class Unit extends BasicThing {
           stat += "nothing";
       else
           stat += clothes.inventoryPrint();
-      stat += "\t " + getClass().getName();
       stat += "\nWeilding: ";
       if(hand == null)
           stat += "nothing";

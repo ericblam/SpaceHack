@@ -22,16 +22,19 @@ public class Inventory {
   }
   
   public Item get(int i) {
-      if(i < bag.length)
+      if(i >= 0 && i < bag.length)
         return bag[i];
       else
         return null;
   }
   
   public Item remove(int i) {
-      Item oldItem = bag[i];
-      bag[i] = null;
-      return oldItem;
+      if(i >= 0 && i < bag.length) {
+        Item oldItem = bag[i];
+        bag[i] = null;
+        return oldItem;
+      }
+      else return null;
   }
   
   public int bagSize() {

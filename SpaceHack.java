@@ -7,18 +7,20 @@ public class SpaceHack {
   private int currLevel;
   private Unit player;
   private ArrayList<Unit> characters;
+  private ArrayList<EnemySpawnPoint> spawns;
   private int turns;
   
   private static final int NUM_LEVELS = 5;
   
   // Depending on how stuff works, you may have to add "SpaceHack/" to the beginning of the filenames.
-  private static final String DECK_3 = "SpaceHack/TwilightDeck3.dat";
+  public static final String DECK_3 = "SpaceHack/TwilightDeck3.dat";
   
   public SpaceHack() {
     game = new Level[NUM_LEVELS];
     turns = 0;
     currLevel = 3;
     characters = new ArrayList<Unit>();
+    spawns = new ArrayList<EnemySpawnPoint>();
     
     setGame();
   }
@@ -61,7 +63,7 @@ public class SpaceHack {
   // Reads a level from a text file.
   private Level readLevel(String filename) {
     
-    Level level = new Level(null);
+    Level level = new Level(this);
     char[][] map = fileToCharArray(filename);
     // This line is iffy, but will work provided that the file has something in it.
     MapNode[][] grid = new MapNode[map.length][map[0].length];
@@ -90,6 +92,10 @@ public class SpaceHack {
         }
         else if(curr == Level.LOCKER_CHAR) {
           grid[r][c] = new Locker(level,c,r);
+        }
+        else if(curr == Level.ENEMYSPAWN_CHAR) {
+          grid[r][c] = new EnemySpawnPoint(level,c,r);
+          spawns.add((EnemySpawnPoint)grid[r][c]);
         }
         else if(curr == Level.CREW_SPAWN_CHAR) {
           grid[r][c] = new CrewSpawn(level,c,r);
@@ -227,12 +233,29 @@ public class SpaceHack {
       return true;
   }
   
+  public void addUnit(Unit u) {
+      characters.add(u);
+  }
+  
   public void doStuff() {
       System.out.println(printCurrLevel());
       System.out.println(printPlayerStats());
   }
   
   public void nextTurn() {
+      if(turns == 100) {
+          spawns.get(0).spawn();
+      }
+      for(int i = 0; i < characters.size(); i++) {
+          if(characters.get(i) instanceof Enemy) {
+              //((Enemy)(characters.get(i))).search();
+          }
+      }
       turns++;
   }
+  
+  public Unit getPlayer() {
+      return player;
+  }
+  
 }

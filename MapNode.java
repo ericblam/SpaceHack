@@ -109,7 +109,7 @@ public class MapNode extends BasicThing {
   }
   
   public Item getItem(int i) {
-      if(i < getItems().size()) {
+      if(i >= 0 && i < getItems().size()) {
           return getItems().get(i);
       }
       else
@@ -117,7 +117,7 @@ public class MapNode extends BasicThing {
   }
   
   public Item removeItem(int i) {
-      if(i < getItems().size()) {
+      if(i >= 0 && i < getItems().size()) {
           return itemsOn.remove(i);
       }
       else
