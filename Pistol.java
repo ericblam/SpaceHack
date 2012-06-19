@@ -1,7 +1,7 @@
 public class Pistol extends Weapon {
     
     public static final double PISTOL_WEIGHT = 7.0;
-    public static final int PISTOL_ATTACK = 2;
+    public static final double PISTOL_ATTACK = 2;
     public static final int PISTOL_RANGE = 6;
     public static final double PISTOL_ACCURACY = 0.95;
     

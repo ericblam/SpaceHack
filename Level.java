@@ -37,8 +37,8 @@ public class Level {
   }
   
   public String toString() {
-      //String level = "^[[0;0H";
-      String level = "";
+      String level = "^[[0;0H";
+      //String level = "";
       Unit charOn;
       for(int r = 0; r < grid.length; r++) {
           for(int c = 0; c < grid[r].length; c++) {

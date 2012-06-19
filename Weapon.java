@@ -3,11 +3,11 @@ public abstract class Weapon extends Item {
     private Ammo magazine;
     private Upgrade upgrade;
     // per shot
-    private int aVal;
+    private double aVal;
     private int r;
     private double acc;
 
-    public Weapon(double weight, Ammo a, int attack, int range, double accuracy) {
+    public Weapon(double weight, Ammo a, double attack, int range, double accuracy) {
         super(weight, null);
         magazine = a;
         aVal = attack + a.attackBonus();
@@ -54,7 +54,7 @@ public abstract class Weapon extends Item {
         return magazine;
     }
 
-    public int getAttack() {
+    public double getAttack() {
         return aVal;
     }
 

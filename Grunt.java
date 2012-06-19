@@ -1,3 +1,7 @@
+
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Grunt extends Enemy {
     
   public static final int GRUNT_INVENTORY_SIZE = 5;
@@ -7,8 +11,55 @@ public class Grunt extends Enemy {
     
   public Grunt(MapNode m) {
       super(m,DEFAULT_GRUNT_HEALTH,DEFAULT_GRUNT_HEALTH,DEFAULT_GRUNT_ATTACK,DEFAULT_GRUNT_STRENGTH,2.0,"Grunt");
+      pickUp(new PhasePistol());
+      equip((Weapon)(getInventory().get(0)));
+      for(int i = 0; i < 2; i++) {
+        pickUp(new Battery());
+      }
   }
   
+  public int findLocation() {
+      char[][] map = getNode().getGrid().getSH().fileToCharArray(SpaceHack.DECK_3);
+      
+      Queue<MapNode> path = new LinkedList<MapNode>();
+      path.add( getNode() );
+      
+      while ( !path.isEmpty() ) {
+          
+        MapNode m = path.remove();
+        int x = m.getX();
+        int y = m.getY();
+        
+        if(m.getCharacter().isFriendly()) {
+            break;
+        }
+        
+        /*
+        maze[x][y] = PATH;
+
+        if ( maze[x][ y + 1 ] == '#' ||
+            maze[x][ y + 1 ] == '$' )
+            path.add( new Location( x, y + 1 ) );
+
+        if ( maze[x][ y - 1 ] == '#' ||
+            maze[x][ y - 1 ] == '$' )
+            path.add( new Location( x, y - 1 ) );
+
+        if ( maze[ x + 1 ][ y ] == '#' ||
+            maze[ x + 1 ][ y ] == '$' )
+            path.add( new Location( x + 1, y ) );
+
+        if ( maze[ x - 1 ][ y ] == '#' ||
+            maze[ x - 1 ][ y ] == '$' )
+            path.add( new Location( x - 1, y ) );
+         */
+          
+      }
+      
+      return 0;
+  }
+  
+  /*
   public int findLocation() {
       // Copies map for reference.
       char[][] map = getNode().getGrid().getSH().fileToCharArray(SpaceHack.DECK_3);
@@ -90,5 +141,6 @@ public class Grunt extends Enemy {
           ans = MapNode.RIGHT;
       return ans;
   }
+  */
   
 }

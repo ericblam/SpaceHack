@@ -144,6 +144,10 @@ public abstract class Unit extends BasicThing {
       currentSpace.putItemDown(i);
   }
   
+  public Weapon getWeapon() {
+      return hand;
+  }
+  
   public Weapon equip(Weapon w) {
       Weapon oldWeapon = hand;
       hand = w;
