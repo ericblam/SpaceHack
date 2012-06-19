@@ -187,7 +187,7 @@ public class PromptGroups {
       else if(reading.equals("f2") || reading.equals("fs") || reading.equals("s2")
               || reading.equals("ss") || reading.equals("a2") || reading.equals("as"))
           player.attack(2);
-      else if(reading.equals("f3") || reading.equals("s2") || reading.equals("a2"))
+      else if(reading.equals("f3") || reading.equals("s3") || reading.equals("a3"))
           player.attack(3);
       else if(reading.equals("f4") || reading.equals("fa") || reading.equals("s4")
               || reading.equals("sa") || reading.equals("a4") || reading.equals("aa"))

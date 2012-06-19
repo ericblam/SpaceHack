@@ -28,7 +28,7 @@ public abstract class Enemy extends Unit {
                 x = 0;
             if(x >= grid[0].length)
                 x = grid[0].length - 1;
-            int maxY = (int)(Math.round(Math.sqrt(Math.pow(weaponRange, 2) + Math.pow(x,2))));
+            int maxY = (int)(Math.round(Math.sqrt(Math.pow(weaponRange, 2) + Math.pow(currX - x,2))));
             for(int y = currY + maxY; y >= currY; y--) {
                 if(y < 0)
                     y = 0;
