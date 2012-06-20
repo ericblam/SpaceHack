@@ -243,14 +243,12 @@ public class SpaceHack {
   }
   
   public void nextTurn() {
-      if(turns == 100) {
+      if(turns == 50) {
           spawns.get(0).spawn();
       }
       for(int i = 0; i < characters.size(); i++) {
           if(characters.get(i) instanceof Enemy) {
-              System.out.println(((Enemy)(characters.get(i))).isEnemyInRange());
-              System.out.println(characters.get(i).getNode().getX() + "," + characters.get(i).getNode().getY());
-              //((Enemy)(characters.get(i))).search();
+              ((Enemy)(characters.get(i))).search();
           }
       }
       turns++;
