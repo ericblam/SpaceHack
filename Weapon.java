@@ -28,7 +28,10 @@ public abstract class Weapon extends Item {
         if(Math.random() <= acc && m.isPassable()) {
             if (m.getCharacter() != null) {
                 // Put something in for defense?
-                double damage = -aVal * (1 + (getHolder().getExp() / Unit.MAX_LEVEL)) - getHolder().getArmor().getAttack();
+                double armorAttack = 0;
+                if(getHolder().getArmor() != null)
+                    armorAttack = getHolder().getArmor().getAttack();
+                double damage = -aVal * (1 + (getHolder().getExp() / Unit.MAX_LEVEL)) - armorAttack;
                 if(m.getCharacter().getArmor() != null)
                     damage += m.getCharacter().getArmor().getDefense();
                 if(damage > 0)

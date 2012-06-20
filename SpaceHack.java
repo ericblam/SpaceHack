@@ -248,7 +248,10 @@ public class SpaceHack {
           spawns.get(0).spawn();
       }
       for(int i = 0; i < characters.size(); i++) {
-          if(characters.get(i) instanceof Enemy) {
+          if(characters.get(i).getHealth() <= 0) {
+              characters.remove(i);
+          }
+          else if(characters.get(i) instanceof Enemy) {
               ((Enemy)(characters.get(i))).search();
           }
       }

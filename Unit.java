@@ -100,7 +100,7 @@ public abstract class Unit extends BasicThing {
           next.getCharacter().addHealth(-attack);
           return next.getCharacter();
       }
-      else if(next.getCharacter() != null && next.getCharacter().isFriendly()) {
+      else if(next.getCharacter() != null && next.getCharacter().isFriendly() != isFriendly) {
           if(PromptGroups.clarificationPrompt()) {
             next.getCharacter().addHealth(-attack);
             return next.getCharacter();

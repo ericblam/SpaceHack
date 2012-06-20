@@ -63,7 +63,7 @@ public abstract class Enemy extends Unit {
             weaponRange = getWeapon().getRange();           
         map = findNonFriendly(map,currX,currY);
         int direction = goBack(map,currX,currY);
-        return 0;
+        return direction;
     }
     
     private char[][] findNonFriendly(char[][] grid, int x, int y) {
@@ -79,15 +79,6 @@ public abstract class Enemy extends Unit {
         if(getNode().getGrid().getGrid()[y][x].getCharacter() != null &&
                 getNode().getGrid().getGrid()[y][x].getCharacter().isFriendly())
             return grid;
-        String print = "^[[0;0H";
-        for(int r = 0; r < grid.length; r++) {
-            for(int c = 0; c < grid[r].length; c++) {
-                print += "" + grid[r][c];
-            }
-            print += "\n";
-        }
-        System.out.println(print);
-        
         int nextSpace = nextSpace(grid,x,y);
         System.out.println(nextSpace);
         if(nextSpace > -1) {
