@@ -1,25 +1,23 @@
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public abstract class Enemy extends Unit {
     
     private static final char MARKED = '0';
+    private static final char MARKED_BAD = 'z';
+    public static final char ENEMY_CHAR = 'E';
     
     public Enemy(MapNode node, double health, double maxHealth, double attack, double strength, double level, String name) {
         super(node,health,maxHealth,attack,strength,level,false,name);
-        setSymbol('E');
+        setSymbol(ENEMY_CHAR);
     }
-    
-    // Is used to provide a direction to move.
-    public abstract int findLocation();
     
     public void search() {
         int direction;
         if(isEnemyInRange()) {
-            // direction = findLocation();
-            direction = 4;
+            direction = findLocation();
             if(getNode().getDirection(direction) instanceof Door) {
                 ((Door)(getNode().getDirection(direction))).open();
             }
@@ -33,7 +31,7 @@ public abstract class Enemy extends Unit {
     public int randomDirection() {
         ArrayList<Integer> dir = new ArrayList<Integer>();
         for(int i = 1; i < 10; i++) {
-            if(i != 5)
+            if(i != MapNode.THIS_SPACE)
                 dir.add(i);
         }
         int direction = dir.get((int)(Math.random() * dir.size()));
@@ -53,6 +51,113 @@ public abstract class Enemy extends Unit {
         if(nextNode instanceof Door) {
             ((Door)nextNode).open();
         }
+        return direction;
+    }
+    
+    public int findLocation() {
+        int currX = getNode().getX();
+        int currY = getNode().getY();
+        char[][] map = getNode().getGrid().getSH().fileToCharArray(SpaceHack.DECK_3plain);
+        int weaponRange = 1;
+        if(getWeapon() != null)
+            weaponRange = getWeapon().getRange();           
+        map = findNonFriendly(map,currX,currY);
+        int direction = goBack(map,currX,currY);
+        return 0;
+    }
+    
+    private char[][] findNonFriendly(char[][] grid, int x, int y) {
+        int currX = getNode().getX();
+        int currY = getNode().getY();
+        int weaponRange = 1;
+        if(getWeapon() != null)
+            weaponRange = getWeapon().getRange();
+        char[][] ans = null;
+        
+        grid[y][x] = MARKED;
+        
+        if(getNode().getGrid().getGrid()[y][x].getCharacter() != null &&
+                getNode().getGrid().getGrid()[y][x].getCharacter().isFriendly())
+            return grid;
+        String print = "^[[0;0H";
+        for(int r = 0; r < grid.length; r++) {
+            for(int c = 0; c < grid[r].length; c++) {
+                print += "" + grid[r][c];
+            }
+            print += "\n";
+        }
+        System.out.println(print);
+        
+        int nextSpace = nextSpace(grid,x,y);
+        System.out.println(nextSpace);
+        if(nextSpace > -1) {
+            if(nextSpace == MapNode.RIGHT)
+                ans = findNonFriendly(grid,x+1,y);
+            else if(nextSpace == MapNode.LEFT)
+                ans = findNonFriendly(grid,x-1,y);
+            else if(nextSpace == MapNode.UP)
+                ans = findNonFriendly(grid,x,y-1);
+            else if(nextSpace == MapNode.DOWN)
+                ans = findNonFriendly(grid,x,y+1);
+        }
+        else {
+            int previousSpace = goBack(grid,x,y);
+            if(previousSpace == MapNode.RIGHT)
+                ans = findNonFriendly(grid,x+1,y);
+            else if(previousSpace == MapNode.LEFT)
+                ans = findNonFriendly(grid,x-1,y);
+            else if(previousSpace == MapNode.UP)
+                ans = findNonFriendly(grid,x,y-1);
+            else if(previousSpace == MapNode.DOWN)
+                ans = findNonFriendly(grid,x,y+1);
+        }
+        
+        return ans;
+    }
+    
+    private int nextSpace(char[][] map, int x, int y) {
+        int ans = -1;
+        int currX = getNode().getX();
+        int currY = getNode().getY();
+        int weaponRange = 1;
+        if(getWeapon() != null)
+            weaponRange = getWeapon().getRange();
+        
+        if(Math.sqrt(Math.pow(currX - x, 2) + Math.pow(currY - y, 2)) < weaponRange) {
+            if(map[y][x+1] == Level.BLAST_DOOR_CHAR && map[y][x+1] != Level.WALL_CHAR && 
+                    map[y][x+1] != MARKED_BAD && map[y][x+1] != MARKED &&
+                    getNode().getGrid().getGrid()[y][x+1].getCharacter() == null)
+                ans = MapNode.RIGHT;
+
+            else if(map[y][x-1] != Level.BLAST_DOOR_CHAR && map[y][x-1] != Level.WALL_CHAR &&  
+                    map[y][x-1] != MARKED_BAD &&  map[y][x-1] != MARKED &&
+                    getNode().getGrid().getGrid()[y][x-1].getCharacter() == null)
+                ans = MapNode.LEFT;
+
+            else if(map[y-1][x] != Level.BLAST_DOOR_CHAR && map[y-1][x] != Level.WALL_CHAR &&  
+                    map[y-1][x] != MARKED_BAD &&  map[y-1][x] != MARKED &&
+                    getNode().getGrid().getGrid()[y-1][x].getCharacter() == null)
+                ans = MapNode.UP;
+
+            else if(map[y+1][x] != Level.BLAST_DOOR_CHAR && map[y+1][x] != Level.WALL_CHAR &&  
+                    map[y+1][x] != MARKED_BAD &&  map[y+1][x] != MARKED &&
+                    getNode().getGrid().getGrid()[y+1][x].getCharacter() == null)
+                ans = MapNode.DOWN;
+        }
+        return ans;
+  }
+    
+    private int goBack(char[][] grid, int x, int y) {
+        int direction = MapNode.THIS_SPACE;
+        grid[y][x] = MARKED_BAD;
+        if(grid[y+1][x] == MARKED)
+            direction = MapNode.DOWN;
+        else if(grid[y-1][x] == MARKED)
+            direction = MapNode.UP;
+        else if(grid[y][x-1] == MARKED)
+            direction = MapNode.LEFT;
+        else if(grid[y][x+1] == MARKED)
+            direction = MapNode.RIGHT;
         return direction;
     }
     

@@ -57,7 +57,7 @@ public abstract class Unit extends BasicThing {
             currentSpace = currentSpace.getDirection(direction);
             currentSpace.putCharacter(this);
         }
-        else if(!next.getCharacter().isFriendly()) {
+        else if(isFriendly != next.getCharacter().isFriendly()) {
             attack(direction);
         }
       }
@@ -71,13 +71,13 @@ public abstract class Unit extends BasicThing {
       Unit attacked;
       if(hand != null && hand.getAmmo().getShots() > 0) {
           attacked = hand.fire(direction);
-          if(attacked != null)
+          if(attacked != null && getNode().getGrid().getSH().getPlayer() == this)
               System.out.println("You shot " + attacked.getName() + "!");
           
       }
       else {
           attacked = melee(direction);
-          if(attacked != null)
+          if(attacked != null && getNode().getGrid().getSH().getPlayer() == this)
               System.out.println("You hit " + attacked.getName() + "!");
       }
       if(attacked != null && attacked.getHealth() <= 0) {

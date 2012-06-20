@@ -14,6 +14,7 @@ public class SpaceHack {
   
   // Depending on how stuff works, you may have to add "SpaceHack/" to the beginning of the filenames.
   public static final String DECK_3 = "SpaceHack/TwilightDeck3.dat";
+  public static final String DECK_3plain = "SpaceHack/TwilightDeck3plain.dat";
   
   public SpaceHack() {
     game = new Level[NUM_LEVELS];
@@ -243,7 +244,7 @@ public class SpaceHack {
   }
   
   public void nextTurn() {
-      if(turns == 50) {
+      if(turns == 5) {
           spawns.get(0).spawn();
       }
       for(int i = 0; i < characters.size(); i++) {

@@ -1,4 +1,3 @@
-
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -18,7 +17,7 @@ public class Grunt extends Enemy {
       }
   }
   
-  public int findLocation() {
+  /*public int findLocation() {
       char[][] map = getNode().getGrid().getSH().fileToCharArray(SpaceHack.DECK_3);
       
       Queue<MapNode> path = new LinkedList<MapNode>();
@@ -34,7 +33,6 @@ public class Grunt extends Enemy {
             break;
         }
         
-        /*
         maze[x][y] = PATH;
 
         if ( maze[x][ y + 1 ] == '#' ||
@@ -52,14 +50,12 @@ public class Grunt extends Enemy {
         if ( maze[ x - 1 ][ y ] == '#' ||
             maze[ x - 1 ][ y ] == '$' )
             path.add( new Location( x - 1, y ) );
-         */
           
       }
       
       return 0;
   }
   
-  /*
   public int findLocation() {
       // Copies map for reference.
       char[][] map = getNode().getGrid().getSH().fileToCharArray(SpaceHack.DECK_3);
