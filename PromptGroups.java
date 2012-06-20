@@ -8,12 +8,13 @@ public class PromptGroups {
           System.out.println("open"); //
           System.out.println("close"); //
           System.out.println("shoot/fire/attack"); //
+          System.out.println("inventory");
           System.out.println("reload"); //
           System.out.println("drop"); //
           System.out.println("pickup"); //
           System.out.println("look"); //
           System.out.println("weild"); //
-          System.out.println("puton"); //
+          System.out.println("wear"); //
           System.out.println("takeoff"); //
           System.out.println("quit"); //
           System.out.println("use\n"); //

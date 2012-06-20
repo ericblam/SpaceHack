@@ -1,0 +1,41 @@
+SpaceHack
+
+Done by: ERIC LAM of ML2X - 07 (Period 10), Mr. Dyrland-Weaver's class.
+
+PLEASE ENJOY.
+
+The project is a simple Rogue game, based in space. The objective (as of now) is to just kill the invading enemies.
+
+Walls are '#', floor is '.', space is ' ', doors are '=', Blast doors are '+' (and require a VacSuit to use). 'E' is an enemy, 'C' is an ally (who just stands there. A good tip is that you can kill them by shooting them or by meleeing them), and your character is '@'.
+
+There are many commands. The commands are listed when "help" is entered in. Any command with a letter listed next to it can be used by using just the letter (example: "o" will do the same thing as "open").
+help - lists commands
+move - moves the character, attacks an adjacent enemy
+open (o) - opens a door
+close (c) - closes a door
+shoot/fire/attack (s/f/a)- shoots weapon
+inventory (i) - 
+reload (r) - prompts inventory to choose which ammo to reload with
+drop (d) - drop an item from your inventory
+pickup (p) - pickup an item off of the ground
+pickupall - pickup as many items as possible off of the ground
+look (l) - look at what items are on the ground
+weild (w) - weild a Weapon from your Inventory
+wear (W) - wear Armor from your Inventory
+takeoff (t) - take off your Armor
+use (u) - use an item, such as a Medpack
+quit - Quits from the game
+Directional keys: asdw, as well as the number pad.
+
+For any command that can be turned into a single letter and that requires a direction: a direction can be added to the end to remove the need for a prompt (example: "open" and "2" does the same thing as "o2" would).
+
+The key point to the game is that there is a maze solver. This is especially difficult as there are a lot of non-linear spaces (everything isn't single-file). With the use of a Stack, the maze solver was improved to help trace backwards if necessary. It is difficult to tell if it is used most of the time, as it is bounded by a fairly short range. There were many times when the enemy was near enough and it would easily find the player, but when it came to trying to track through a wall, it ended up in a circlular path that didn't make sense, so in that case, it would just move toward your player. But especially in the smaller hallways, the maze solver works beautifully. It is iffy, though, and I will admit that... in the very least, the enemies will be able to find you and attack you.
+
+I used the Keyboard class, which we used first semester in Mr. Platek's class. It is apparently by Lewis and Loftus. It was useful as getting reliable input was seeming hard to do.
+
+There is a slight bug (this may depend on the environment) where the files read are read in the folder above, requiring the addition of the main folder to the filename.
+Example: in Dr. Java, it would be good with "TwilightDeck3.dat" but in NetBeans, it would only like "SpaceHack/TwilightDeck3.dat".
+
+This game could use much improvement, most notably in the fact that it isn't a GUI. If it were a GUI, it could detect keystrokes and eliminate the need to constantly press "enter."
+
+PLEASE ENJOY.

@@ -248,10 +248,13 @@ public class SpaceHack {
   public void nextTurn() {
       if(turns % 25 == 0) {
           spawns.get((int)(Math.random() * spawns.size())).spawn();
+          if(turns > 200)
+              spawns.get((int)(Math.random() * spawns.size())).spawn();
       }
       for(int i = 0; i < characters.size(); i++) {
           if(characters.get(i).getHealth() <= 0) {
               characters.remove(i);
+              i--;
           }
           else if(characters.get(i) instanceof Enemy) {
               ((Enemy)(characters.get(i))).search();

@@ -82,7 +82,7 @@ public abstract class Unit extends BasicThing {
       }
       if(attacked != null && attacked.getHealth() <= 0) {
           double score = attacked.getExp();
-          if(attacked.isFriendly())
+          if(attacked.isFriendly() == isFriendly)
             level -= Math.sqrt(attacked.getExp());
           else
             level += Math.sqrt(attacked.getExp());
@@ -93,6 +93,8 @@ public abstract class Unit extends BasicThing {
               level = MAX_LEVEL;
           if(this == getNode().getGrid().getSH().getPlayer())
               getNode().getGrid().getSH().addPoints(score);
+          if(this instanceof Enemy)
+              getNode().getGrid().getSH().addPoints(-score);
           System.out.println(attacked.getName() + " was killed!");
       }
   }

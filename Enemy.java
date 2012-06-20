@@ -10,11 +10,13 @@ public abstract class Enemy extends Unit {
     public static final char ENEMY_CHAR = 'E';
     
     private Stack<Integer> lastDirection;
+    private int countEmpty;
     
     public Enemy(MapNode node, double health, double maxHealth, double attack, double strength, double level, String name) {
         super(node,health,maxHealth,attack,strength,level,false,name);
         setSymbol(ENEMY_CHAR);
         lastDirection = new Stack<Integer>();
+        countEmpty = 0;
     }
     
     public void search() {
@@ -97,8 +99,8 @@ public abstract class Enemy extends Unit {
         
         grid[y][x] = MARKED;
         // printCharArray(grid);
-        if(lastDirection.empty())
-            return null;
+        //if(lastDirection.empty())
+        //    return null;
         if(getNode().getGrid().getGrid()[y][x].getCharacter() != null &&
                 getNode().getGrid().getGrid()[y][x].getCharacter().isFriendly())
             return grid;
@@ -161,29 +163,33 @@ public abstract class Enemy extends Unit {
   }
     
     private int goBack(char[][] grid, int x, int y) {
-        /*int direction = MapNode.THIS_SPACE;
-        grid[y][x] = MARKED_BAD;
-        if(grid[y+1][x] == MARKED)
-            direction = MapNode.DOWN;
-        else if(grid[y-1][x] == MARKED)
-            direction = MapNode.UP;
-        else if(grid[y][x-1] == MARKED)
-            direction = MapNode.LEFT;
-        else if(grid[y][x+1] == MARKED)
-            direction = MapNode.RIGHT;
-        return direction;*/
-        grid[y][x] = MARKED_BAD;
-        int lastDir = lastDirection.pop();
-        int direction = 5;
-        if(lastDir == MapNode.UP)
-            direction = MapNode.DOWN;
-        else if(lastDir == MapNode.DOWN)
-            direction = MapNode.UP;
-        else if(lastDir == MapNode.RIGHT)
-            direction = MapNode.LEFT;
-        else if(lastDir == MapNode.LEFT)
-            direction = MapNode.RIGHT;
-        return direction;
+        if(lastDirection.empty()) {
+            int direction = MapNode.THIS_SPACE;
+            grid[y][x] = MARKED_BAD;
+            if(grid[y+1][x] == MARKED)
+                direction = MapNode.DOWN;
+            else if(grid[y-1][x] == MARKED)
+                direction = MapNode.UP;
+            else if(grid[y][x-1] == MARKED)
+                direction = MapNode.LEFT;
+            else if(grid[y][x+1] == MARKED)
+                direction = MapNode.RIGHT;
+            return direction;
+        }
+        else {
+            grid[y][x] = MARKED_BAD;
+            int lastDir = lastDirection.pop();
+            int direction = 5;
+            if(lastDir == MapNode.UP)
+                direction = MapNode.DOWN;
+            else if(lastDir == MapNode.DOWN)
+                direction = MapNode.UP;
+            else if(lastDir == MapNode.RIGHT)
+                direction = MapNode.LEFT;
+            else if(lastDir == MapNode.LEFT)
+                direction = MapNode.RIGHT;
+            return direction;
+        }
     }
     
     private int goForward() {
