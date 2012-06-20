@@ -9,13 +9,25 @@ public abstract class Enemy extends Unit {
     private static final char MARKED_BAD = 'z';
     public static final char ENEMY_CHAR = 'E';
     
+    private Stack<Integer> lastDirection;
+    
     public Enemy(MapNode node, double health, double maxHealth, double attack, double strength, double level, String name) {
         super(node,health,maxHealth,attack,strength,level,false,name);
         setSymbol(ENEMY_CHAR);
+        lastDirection = new Stack<Integer>();
     }
     
     public void search() {
         int direction;
+        if(getWeapon().getAmmo().getShots() == 0) {
+            Ammo reload = null;
+            for(int i = 0; i < getInventory().bagSize(); i++) {
+                if(getInventory().get(i) instanceof Ammo && ((Ammo)(getInventory().get(i))).getShots() != 0)
+                    reload = (Ammo)(getInventory().get(i));
+            }
+            if(reload != null)
+                reload(reload);
+        }
         if(isEnemyInRange()) {
             direction = findLocation();
             if(getNode().getDirection(direction) instanceof Door) {
@@ -25,7 +37,11 @@ public abstract class Enemy extends Unit {
         else {
             direction = randomDirection();
         }
-        move(direction);
+        int firing = firingDirection();
+        if(firing != MapNode.THIS_SPACE && getWeapon() != null && getWeapon().getAmmo().getShots() != 0)
+            attack(firing);
+        else
+            move(direction);
     }
     
     public int randomDirection() {
@@ -55,6 +71,7 @@ public abstract class Enemy extends Unit {
     }
     
     public int findLocation() {
+        lastDirection = new Stack<Integer>();
         int currX = getNode().getX();
         int currY = getNode().getY();
         char[][] map = getNode().getGrid().getSH().fileToCharArray(SpaceHack.DECK_3plain);
@@ -62,7 +79,11 @@ public abstract class Enemy extends Unit {
         if(getWeapon() != null)
             weaponRange = getWeapon().getRange();           
         map = findNonFriendly(map,currX,currY);
-        int direction = goBack(map,currX,currY);
+        int direction = MapNode.THIS_SPACE;
+        if(map != null)
+            direction = goForward();
+        else
+            direction = goToward();
         return direction;
     }
     
@@ -75,21 +96,30 @@ public abstract class Enemy extends Unit {
         char[][] ans = null;
         
         grid[y][x] = MARKED;
-        
+        // printCharArray(grid);
+        if(lastDirection.empty())
+            return null;
         if(getNode().getGrid().getGrid()[y][x].getCharacter() != null &&
                 getNode().getGrid().getGrid()[y][x].getCharacter().isFriendly())
             return grid;
         int nextSpace = nextSpace(grid,x,y);
-        System.out.println(nextSpace);
         if(nextSpace > -1) {
-            if(nextSpace == MapNode.RIGHT)
+            if(nextSpace == MapNode.RIGHT) {
+                lastDirection.push(MapNode.RIGHT);
                 ans = findNonFriendly(grid,x+1,y);
-            else if(nextSpace == MapNode.LEFT)
+            }
+            else if(nextSpace == MapNode.LEFT) {
+                lastDirection.push(MapNode.LEFT);
                 ans = findNonFriendly(grid,x-1,y);
-            else if(nextSpace == MapNode.UP)
+            }
+            else if(nextSpace == MapNode.UP) {
+                lastDirection.push(MapNode.UP);
                 ans = findNonFriendly(grid,x,y-1);
-            else if(nextSpace == MapNode.DOWN)
+            }
+            else if(nextSpace == MapNode.DOWN) {
+                lastDirection.push(MapNode.DOWN);
                 ans = findNonFriendly(grid,x,y+1);
+            }
         }
         else {
             int previousSpace = goBack(grid,x,y);
@@ -131,7 +161,7 @@ public abstract class Enemy extends Unit {
   }
     
     private int goBack(char[][] grid, int x, int y) {
-        int direction = MapNode.THIS_SPACE;
+        /*int direction = MapNode.THIS_SPACE;
         grid[y][x] = MARKED_BAD;
         if(grid[y+1][x] == MARKED)
             direction = MapNode.DOWN;
@@ -140,6 +170,52 @@ public abstract class Enemy extends Unit {
         else if(grid[y][x-1] == MARKED)
             direction = MapNode.LEFT;
         else if(grid[y][x+1] == MARKED)
+            direction = MapNode.RIGHT;
+        return direction;*/
+        grid[y][x] = MARKED_BAD;
+        int lastDir = lastDirection.pop();
+        int direction = 5;
+        if(lastDir == MapNode.UP)
+            direction = MapNode.DOWN;
+        else if(lastDir == MapNode.DOWN)
+            direction = MapNode.UP;
+        else if(lastDir == MapNode.RIGHT)
+            direction = MapNode.LEFT;
+        else if(lastDir == MapNode.LEFT)
+            direction = MapNode.RIGHT;
+        return direction;
+    }
+    
+    private int goForward() {
+        int ans = 5;
+        while(!lastDirection.empty()) {
+            ans = lastDirection.pop();
+        }
+        return ans;
+    }
+    
+    private int goToward() {
+        int direction = MapNode.THIS_SPACE;
+        Unit player = getNode().getGrid().getSH().getPlayer();
+        int playerx = player.getNode().getX();
+        int playery = player.getNode().getY();
+        int thisx = getNode().getX();
+        int thisy = getNode().getY();
+        if(playerx > thisx && playery > thisy)
+            direction = MapNode.DOWN_RIGHT;
+        else if(playerx == thisx && playery > thisy)
+            direction = MapNode.DOWN;
+        else if(playerx < thisx && playery > thisy)
+            direction = MapNode.DOWN_LEFT;
+        else if(playerx < thisx && playery == thisy)
+            direction = MapNode.LEFT;
+        else if(playerx < thisx && playery < thisy)
+            direction = MapNode.UP_LEFT;
+        else if(playerx == thisx && playery < thisy)
+            direction = MapNode.UP;
+        else if(playerx > thisx && playery < thisy)
+            direction = MapNode.UP_RIGHT;
+        else if(playerx > thisx && playery == thisy)
             direction = MapNode.RIGHT;
         return direction;
     }
@@ -175,6 +251,29 @@ public abstract class Enemy extends Unit {
             }
         }
         return false;
+    }
+    
+    public int firingDirection() {
+        int direction = MapNode.THIS_SPACE;
+        if(isToDirection(getNode(),MapNode.RIGHT,getWeapon().getRange()))
+            direction = MapNode.RIGHT;
+        else if(isToDirection(getNode(),MapNode.LEFT,getWeapon().getRange()))
+            direction = MapNode.LEFT;
+        else if(isToDirection(getNode(),MapNode.UP,getWeapon().getRange()))
+            direction = MapNode.UP;
+        else if(isToDirection(getNode(),MapNode.DOWN,getWeapon().getRange()))
+            direction = MapNode.DOWN;
+        return direction;
+    }
+    
+    public boolean isToDirection(MapNode m, int direction, int range) {
+        if(m.getCharacter() != null && m.getCharacter().isFriendly() != isFriendly())
+            return true;
+        else if (range <= 0 || !m.isPassable()) {
+            return false;
+        }
+        else
+            return isToDirection(m.getDirection(direction), direction, range - 1);
     }
     
     public boolean isEnemyInRange2(char[][] grid) {
@@ -218,4 +317,16 @@ public abstract class Enemy extends Unit {
         }
         return false;
     }
+    
+    private void printCharArray(char[][] array) {
+        String print = "";
+        for(int r = 0; r < array.length; r++) {
+            for(int c = 0; c < array[r].length; c++) {
+                print += "" + array[r][c];
+            }
+            print += "\n";
+        }
+        System.out.println(print);
+    }
+    
 }

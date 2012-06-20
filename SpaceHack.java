@@ -9,6 +9,7 @@ public class SpaceHack {
   private ArrayList<Unit> characters;
   private ArrayList<EnemySpawnPoint> spawns;
   private int turns;
+  private double score;
   
   private static final int NUM_LEVELS = 5;
   
@@ -22,6 +23,7 @@ public class SpaceHack {
     currLevel = 3;
     characters = new ArrayList<Unit>();
     spawns = new ArrayList<EnemySpawnPoint>();
+    score = 0;
     
     setGame();
   }
@@ -154,7 +156,7 @@ public class SpaceHack {
   }
   
   public String printPlayerStats() {
-      return player.statString() + "\tTurn: " + turns;
+      return player.statString() + "\tTurn: " + turns + "\tScore: " + score;
   }
   
   public String printPlayerInventory() {
@@ -244,8 +246,8 @@ public class SpaceHack {
   }
   
   public void nextTurn() {
-      if(turns == 5) {
-          spawns.get(0).spawn();
+      if(turns % 25 == 0) {
+          spawns.get((int)(Math.random() * spawns.size())).spawn();
       }
       for(int i = 0; i < characters.size(); i++) {
           if(characters.get(i).getHealth() <= 0) {
@@ -256,10 +258,18 @@ public class SpaceHack {
           }
       }
       turns++;
+      if(player.getHealth() <= 0) {
+          System.out.println("YOU DIED.");
+          System.exit(0);
+      }
   }
   
   public Unit getPlayer() {
       return player;
+  }
+  
+  public void addPoints(double points) {
+      score += points;
   }
   
 }
