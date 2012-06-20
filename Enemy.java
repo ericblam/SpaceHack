@@ -124,7 +124,7 @@ public abstract class Enemy extends Unit {
             weaponRange = getWeapon().getRange();
         
         if(Math.sqrt(Math.pow(currX - x, 2) + Math.pow(currY - y, 2)) < weaponRange) {
-            if(map[y][x+1] == Level.BLAST_DOOR_CHAR && map[y][x+1] != Level.WALL_CHAR && 
+            if(map[y][x+1] != Level.BLAST_DOOR_CHAR && map[y][x+1] != Level.WALL_CHAR && 
                     map[y][x+1] != MARKED_BAD && map[y][x+1] != MARKED &&
                     getNode().getGrid().getGrid()[y][x+1].getCharacter() == null)
                 ans = MapNode.RIGHT;
