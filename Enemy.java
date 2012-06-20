@@ -124,24 +124,16 @@ public abstract class Enemy extends Unit {
             weaponRange = getWeapon().getRange();
         
         if(Math.sqrt(Math.pow(currX - x, 2) + Math.pow(currY - y, 2)) < weaponRange) {
-            if(map[y][x+1] != Level.BLAST_DOOR_CHAR && map[y][x+1] != Level.WALL_CHAR && 
-                    map[y][x+1] != MARKED_BAD && map[y][x+1] != MARKED &&
-                    getNode().getGrid().getGrid()[y][x+1].getCharacter() == null)
+            if(map[y][x+1] == Level.FLOOR_CHAR)
                 ans = MapNode.RIGHT;
 
-            else if(map[y][x-1] != Level.BLAST_DOOR_CHAR && map[y][x-1] != Level.WALL_CHAR &&  
-                    map[y][x-1] != MARKED_BAD &&  map[y][x-1] != MARKED &&
-                    getNode().getGrid().getGrid()[y][x-1].getCharacter() == null)
+            else if(map[y][x-1] == Level.FLOOR_CHAR)
                 ans = MapNode.LEFT;
 
-            else if(map[y-1][x] != Level.BLAST_DOOR_CHAR && map[y-1][x] != Level.WALL_CHAR &&  
-                    map[y-1][x] != MARKED_BAD &&  map[y-1][x] != MARKED &&
-                    getNode().getGrid().getGrid()[y-1][x].getCharacter() == null)
+            else if(map[y-1][x] == Level.FLOOR_CHAR)
                 ans = MapNode.UP;
 
-            else if(map[y+1][x] != Level.BLAST_DOOR_CHAR && map[y+1][x] != Level.WALL_CHAR &&  
-                    map[y+1][x] != MARKED_BAD &&  map[y+1][x] != MARKED &&
-                    getNode().getGrid().getGrid()[y+1][x].getCharacter() == null)
+            else if(map[y+1][x] == Level.FLOOR_CHAR)
                 ans = MapNode.DOWN;
         }
         return ans;
